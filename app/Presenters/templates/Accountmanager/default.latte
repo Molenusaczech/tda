@@ -1,0 +1,40 @@
+{block content}
+
+Account mngr
+
+<table id="accountTable">
+
+<tr>
+<th>Jméno</th>
+<th>Heslo</th>
+<th>Admin?</th>
+</tr>
+
+{foreach $users as $name => $u}
+
+<tr data-account={$name}>
+
+<td>{$name}</td>
+<td>{$u["password"]}</td>
+
+{if $u["manageUsers"]}
+<td>true</td>
+{else}
+<td>false</td>
+{/if}
+
+<td> <input name="editButton" type="button" value="Upravit" onClick=edit("{$name}")> </td>
+<td> <input type="button" value="Smazat" onClick=deleteUser("{$name}")> </td>
+
+</tr>
+
+{/foreach}
+
+</table>
+
+<input type="button" value="Přidat" onClick=add() id="addButton">
+
+
+<script src="{$basePath}/js/accountManager.js"></script>
+
+{/block}

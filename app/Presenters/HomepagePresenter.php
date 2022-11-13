@@ -18,6 +18,15 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         $notes = $data['notes'];
         $tags = $data['tags'];
 
+        //$user = $_SESSION['user'];
+
+        if (isset($_SESSION['user'])) {
+            $this->template->user = $_SESSION['user'];
+        } else {
+            $this->redirect('Login:');
+        }
+
+
         $finalNotes = array();
 
         $index = 0;
