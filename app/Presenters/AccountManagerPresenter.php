@@ -24,15 +24,43 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
 
             if ($json[$author]["manageUsers"] == true) {
 
-                $json[$user]['password'] = $data['password'];
-                $json[$user]['manageUsers'] = $data['isAdmin'];
+                if ($data["action"] == "addNew") {
+                    $json[$user]['password'] = $data['password'];
+                    $json[$user]['manageUsers'] = $data['isAdmin'];
 
-                $json = json_encode($json);
-                file_put_contents('../storage/data.json', $json);
+                    if (!preg_match('/^\pL+$/u', $user)) {
+                        $this->sendJson(['resp' => "Uživatelské jméno může obsahovat pouze písmena"]);
+                     }
+
+                    $json = json_encode($json);
+                    file_put_contents('../storage/data.json', $json);
         
-                $this->sendJson(['resp' => "done"]);
+                    $this->sendJson(['resp' => "done"]);
+                } else if ($data["action"] == "delete") {
+
+                    if ($user == "admin") {
+                        $this->sendJson(['resp' => "Nelze smazat uživatele admin"]);
+                    }
+
+                    unset($json[$user]);
+                    $json = json_encode($json);
+                    file_put_contents('../storage/data.json', $json);
+
+                    $this->sendJson(['resp' => "done"]);
+                } else if ($data["action"] == "update") {
+
+                    if (isset($json[$user])) {
+                        $json[$user]['password'] = $data['password'];
+                        $json[$user]['manageUsers'] = $data['isAdmin'];
+                        $json = json_encode($json);
+                        file_put_contents('../storage/data.json', $json);
+                        $this->sendJson(['resp' => "done"]);
+                    } else {
+                        $this->sendJson(['resp' => "Tento uživatel neexistuje"]);
+                    }
+                }
             } else {
-                $this->sendJson(['resp' => "no perm"]);
+                $this->sendJson(['resp' => "Na toto nemáte oprávnění"]);
             }
         }
 
