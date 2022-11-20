@@ -2,11 +2,14 @@
 
 {block content}
 
-<h1>Welcome to your new website!</h1>
+<div id="header">
+	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
+	<span id="logout"></span>
+</div>
 
 
-<table style="border: 1px solid #000000;">
-<tr>
+<table style="border: 1px solid #000000;" id="mainTable">
+<tr id="tableTitle">
 
 <th>description</th>
 <th>date</th>
@@ -16,9 +19,9 @@
 <th>tags</th>
 
 </tr>
-{foreach $notes as $t}
+{foreach $notes as $id => $t}
 
-<tr {$t["data"]}> 
+<tr {$t["data"]} data-id={$id}> 
 
 <td>{$t["description"]}</td>
 <td>{$t["date"]}</td>
@@ -30,14 +33,24 @@
 
 {foreach $t["tags"] as $tag}
 
-<span style={$tag['style']}>{$tag['name']}</span>
+<span style={$tag['color']}>{$tag['name']}</span>
 
 {/foreach}
 
 </td>
+<td> <input type="button" name="editButton" value="Upravit" onClick=edit({$id})> </td>
+<td> <input type="button" value="Smazat" onClick=del({$id})> </td>
 
 
 </tr>
 
 {/foreach}
 </table>
+
+<input id="addButton" type="button" value="Přidat" onClick=add()>
+
+<script> 
+const tags = {$tags};
+</script>
+
+<script src="{$basePath}/js/records.js"></script>

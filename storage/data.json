@@ -1,1 +1,99 @@
-{"admin":{"password":"heslo","manageUsers":true},"mole":{"password":"veslo","manageUsers":true}}
+{
+    "admin": {
+        "password": "heslo",
+        "manageUsers": true,
+        "notes": {
+            "30": {
+                "description": "j",
+                "date": "2022-11-20T13:57",
+                "lang": "phph",
+                "lenght": "54",
+                "rating": "3",
+                "tags": []
+            },
+            "31": {
+                "description": "desc",
+                "date": "2022-11-20T14:00",
+                "lang": "php",
+                "lenght": "5",
+                "rating": "4",
+                "tags": [
+                    "1"
+                ]
+            },
+            "32": {
+                "description": "t2",
+                "date": "2022-11-20T10:25",
+                "lang": "iu",
+                "lenght": "78",
+                "rating": "2",
+                "tags": [
+                    "1"
+                ]
+            },
+            "33": {
+                "description": "desc",
+                "date": "2022-11-20T14:01",
+                "lang": "php2",
+                "lenght": "5",
+                "rating": "4",
+                "tags": [
+                    "0",
+                    "1"
+                ]
+            },
+            "35": {
+                "description": "t222",
+                "date": "2022-11-20T10:14",
+                "lang": "iu",
+                "lenght": "79",
+                "rating": "2",
+                "tags": [
+                    "1"
+                ]
+            },
+            "36": {
+                "description": "test",
+                "date": "2022-11-20T13:32",
+                "lang": "5",
+                "lenght": "2",
+                "rating": "1",
+                "tags": []
+            },
+            "37": {
+                "description": "tt",
+                "date": "2022-11-20T13:32",
+                "lang": "t",
+                "lenght": "2",
+                "rating": "3",
+                "tags": [
+                    "1"
+                ]
+            },
+            "38": {
+                "description": "test",
+                "date": "2022-11-20T13:54",
+                "lang": "tst",
+                "lenght": "56",
+                "rating": "14",
+                "tags": [
+                    "1"
+                ]
+            }
+        },
+        "tags": [
+            {
+                "name": "tag1",
+                "color": "#00ff00"
+            },
+            {
+                "name": "tag2",
+                "color": "#ff0000"
+            }
+        ]
+    },
+    "mole": {
+        "password": "veslo",
+        "manageUsers": true
+    }
+}
