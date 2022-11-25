@@ -10,7 +10,7 @@ function edit(id) {
     var curtags = [];
 
     var i = 0;
-    tags.forEach(function (tag) {
+    /*tags.forEach(function (tag) {
 
         if (pos.hasAttribute(`data-tags-${i}`)) {
             var checkedValue = "value='true'";
@@ -22,7 +22,21 @@ function edit(id) {
 
         tagtext += `<input type="checkbox" name="tag"  onClick=UpdateTag("${i}") data-tag="${tag.name}" checked)><span style="background-color: ${tag.color}">${tag.name}</span><br>`;
         i++;
-    });
+    });*/
+
+    for (const [key, value] of Object.entries(tags)) {
+        var tag = value;
+        var i = key;
+        if (pos.hasAttribute(`data-tags-${i}`)) {
+            var checkedValue = "value='true'";
+            tdtext += `<span data-tagval=${i} style="background-color: ${tag.color}">${tag.name}</span>`;
+            curtags.push(i);
+        } else {
+            var checkedValue = "";
+        }
+
+        tagtext += `<input type="checkbox" name="tag"  onClick=UpdateTag("${i}") data-tag="${tag.name}" checked)><span style="background-color: ${tag.color}">${tag.name}</span><br>`;
+    }
 
     var desc = pos.getAttribute("data-desc");
     console.log("desc: " + desc);
@@ -53,7 +67,7 @@ function edit(id) {
         <input type='number' min=1 max=5 name="rating" value='${rating}'>
     </td>
 
-    <td> <span class="popup"><span onclick="popup()">+</span>
+    <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
         <span class="popuptext" id="myPopup">
             `+ tagtext + `
         </span>
@@ -69,7 +83,6 @@ function edit(id) {
 
 
     console.log(tags);
-
     pos.insertAdjacentHTML('afterEnd', html);
     document.getElementsByName("date")[0].value = new Date().toISOString().slice(0, 16);
     document.getElementById("addButton").disabled = true;
@@ -88,22 +101,22 @@ function edit(id) {
 function del(id) {
     console.log("delete " + id);
 
-    naja.makeRequest('POST', '/', JSON.stringify({"action": "delete", "id": id}), {
+    naja.makeRequest('POST', '/', JSON.stringify({ "action": "delete", "id": id }), {
         fetch: {
             headers: {
                 'Content-Type': 'application/json',
             },
         },
     }).then(function (response) {
-    
+
         //console.log(response);
 
         if (response.resp == "done") {
             //console.log("success");
-            document.querySelector('[data-id="' + id+ '"]').remove();
+            document.querySelector('[data-id="' + id + '"]').remove();
 
         } else {
-            alert("Error! "+response.resp);
+            alert("Error! " + response.resp);
         }
 
     });
@@ -118,10 +131,16 @@ function add() {
     var tagtext = "";
 
     var i = 0;
-    tags.forEach(function (tag) {
+    /*tags.forEach(function (tag) {
         tagtext += `<input type="checkbox" name="tag" value="${tag.name}" onClick=UpdateTag("${i}") data-tag="${tag.name}")><span style="background-color: ${tag.color}">${tag.name}</span><br>`;
         i++;
-    });
+    });*/
+
+    for (const [key, value] of Object.entries(tags)) {
+        var tag = value;
+        var i = key;
+        tagtext += `<input type="checkbox" name="tag" value="${tag.name}" onClick=UpdateTag("${i}") data-tag="${tag.name}")><span style="background-color: ${tag.color}">${tag.name}</span><br>`;
+    }
 
     var html = `<tr id='addnew'>
     <td>
@@ -141,7 +160,7 @@ function add() {
         <input type='number' min=1 max=5 name="rating">
     </td>
 
-    <td> <span class="popup"><span onclick="popup()">+</span>
+    <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
         <span class="popuptext" id="myPopup">
             `+ tagtext + `
         </span>
@@ -175,14 +194,14 @@ function popup() {
 
 function UpdateTag(id) {
     var tag = tags[id]["name"];
-    var tagStyle = "style='background-color: "+tags[id]["color"]+";' data-tagval="+id;
+    var tagStyle = "style='background-color: " + tags[id]["color"] + ";' data-tagval=" + id;
     //console.log(tag);
     var tagObject = document.querySelector(`[data-tag="${tag}"]`);
     //console.log(tagObject);
     if (tagObject.checked) {
         //console.log("checked");
         var html = `<span ${tagStyle}>${tag}</span>`;
-        var pos = document.getElementsByClassName("popup")[0];
+        var pos = document.getElementById("editPopup");
         pos.insertAdjacentHTML('afterEnd', html);
     } else {
         //console.log("unchecked");
@@ -195,15 +214,15 @@ function save(id) {
     console.log("save " + id);
 
     var description = document.getElementsByName("description")[0].value;
-    console.log("description "+description);
+    console.log("description " + description);
     var date = document.getElementsByName("date")[0].value;
-    console.log("date "+date);
+    console.log("date " + date);
     var lang = document.getElementsByName("lang")[0].value;
-    console.log("lang "+lang);
+    console.log("lang " + lang);
     var lenght = document.getElementsByName("lenght")[0].value;
-    console.log("lenght "+lenght);
+    console.log("lenght " + lenght);
     var rating = document.getElementsByName("rating")[0].value;
-    console.log("rating "+rating);
+    console.log("rating " + rating);
 
     var tagobjs = document.querySelectorAll('[data-tagval]');
 
@@ -255,8 +274,8 @@ function save(id) {
                     tagobjs.forEach(function (tag) {
                         var tagid = tag.dataset.tagval;
                         //console.log("tagid: "+tags);
-                        tagtext += `<span style="background-color: ${tags[tagid]["color"]}">${tags[tagid]["name"]}</span>`;
-                        datatags += `data-tags-${tagid}`;
+                        tagtext += `<span data-tagid="${tagid}" style="background-color: ${tags[tagid]["color"]}">${tags[tagid]["name"]}</span> `;
+                        datatags += `data-tags-${tagid} `;
                         i++;
                     });
 
@@ -265,7 +284,7 @@ function save(id) {
                         i++;
                     });*/
 
-                    var html = ` <tr `+datas+` `+datatags+` data-id="${id}">
+                    var html = ` <tr ` + datas + ` ` + datatags + ` data-id="${id}">
 
                     <td>${description}</td>
                     <td>${date}</td>
@@ -340,8 +359,8 @@ function save(id) {
                     tagobjs.forEach(function (tag) {
                         var tagid = tag.dataset.tagval;
                         //console.log("tagid: "+tags);
-                        tagtext += `<span style="background-color: ${tags[tagid]["color"]}">${tags[tagid]["name"]}</span>`;
-                        datatags += ` data-tags-${tagid}`;
+                        tagtext += `<span data-tagid="${tagid}" style="background-color: ${tags[tagid]["color"]}">${tags[tagid]["name"]}</span> `;
+                        datatags += ` data-tags-${tagid} `;
                         i++;
                     });
 
@@ -375,10 +394,169 @@ function save(id) {
 
                     document.getElementById("addButton").disabled = false;
                 }
-                });
+            });
         }
-            
+
     }
 
 
+}
+
+function tagPopup(id) {
+
+    if (document.getElementsByClassName("show").length != 0 && document.getElementsByClassName("show")[0].dataset.popup != id) {
+        document.getElementsByClassName("show")[0].classList.remove("show");
+    }
+    if (id == "new") {
+        var popup = document.getElementById("newPopup");
+        popup.classList.toggle("show");
+    } else {
+        const element = document.querySelector('[data-popup="' + id + '"]');
+        //console.log(element); // 👉️ div
+        element.classList.toggle("show");
+    }
+
+}
+
+function tagCreate(id) {
+    if (id == "new") {
+        var color = document.getElementById("newColor").value;
+        var name = document.getElementById("newName").value;
+
+        if (name !== "") {
+            var json = JSON.stringify({
+                "color": color,
+                "name": name,
+                "action": "addTag"
+            });
+
+            naja.makeRequest('POST', '/', json, {
+                fetch: {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            }).then(function (response) {
+                console.log(response);
+                if (response.resp == "done") {
+                    var i = response.id;
+                    var html = `
+                    <span style="background-color: ${color}" class="tagSelector" data-tagselect=${i}> 
+                	<input type="checkbox" onClick=tagClick(${i})> 
+                    <span data-tagtitle="${i}"> ${name}  </span>
+                                
+                	 <span class="popup">
+                 		<span onClick=tagPopup(${i})>✎</span>
+                        <span class="tagPopup" data-popup=${i}>
+                			<input type="color" value="${color}">
+                			<input type="text" placeholder="Jméno štítku" value="${name}">		
+                			<input type="button" value="Uložit" onclick=tagEdit(${i})>
+                        </span>
+                        </span>
+                        <span onClick=tagDelete(${i}) class="clickable">🗑</span>
+                </span>
+                    `;
+                    var pos = document.getElementById("newTag");
+                    pos.insertAdjacentHTML('beforeBegin', html);
+                    tags[i] = {
+                        "name": name,
+                        "color": color,
+                        "style": "background-color: " + color
+                    }
+                    document.getElementById("newColor").value = "#000000";
+                    document.getElementById("newName").value = "";
+                    tagPopup("new");
+                } else {
+                    alert("Error " + response.resp);
+                }
+            });
+        } else {
+            alert("Nejsou vyplněna všechna pole!");
+        }
+
+    }
+}
+
+function tagEdit(id) {
+    var color = document.querySelector('[data-popup="' + id + '"] input[type="color"]').value;
+    var name = document.querySelector('[data-popup="' + id + '"] input[type="text"]').value;
+
+    console.log(color);
+    console.log(name);
+
+    if (name !== "") {
+        var json = JSON.stringify({
+            "color": color,
+            "name": name,
+            "action": "editTag",
+            "id": id
+        });
+
+        naja.makeRequest('POST', '/', json, {
+            fetch: {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        }).then(function (response) {
+            console.log(response);
+            if (response.resp == "done") {
+                tags[id] = {
+                    "name": name,
+                    "color": color,
+                    "style": "background-color: " + color
+                }
+                document.querySelector('[data-popup="' + id + '"]').classList.remove("show");
+                document.querySelector('[data-tagselect="' + id + '"]').style.backgroundColor = color;
+                document.querySelector('[data-tagtitle="' + id + '"]').innerHTML = name;
+                //console.log(document.querySelector('[data-tagtitle="' + id + '"]'))
+                
+
+                //document.querySelector('[data-tagselect="' + id + '"]').style.backgroundColor = color;
+                //document.querySelector('[data-tagselect="' + id + '"]').children[1].innerHTML = name;
+
+                var tagsobjs = document.querySelectorAll('[data-tagid="' + id + '"]');
+
+                tagsobjs.forEach(function (tag) {
+                    tag.style.backgroundColor = color;
+                    tag.innerHTML = name;
+                });
+
+            } else {
+                alert("Error " + response.resp);
+            }
+        });
+    } else {
+        alert("Nejsou vyplněna všechna pole!");
+    }
+}
+
+function tagDelete(id) {
+    var name = tags[id].name;
+    if (confirm("Chcete vážně smazat štítek "+name+"? Toto ho odstraní ze všech záznamů!")) {
+        console.log("smazat");
+        var json = JSON.stringify({
+            "action": "deleteTag",
+            "id": id
+        });
+        naja.makeRequest('POST', '/', json, {
+            fetch: {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            },
+        }).then(function (response) {
+            console.log(response);
+            if (response.resp == "done") {
+                var tagsobjs = document.querySelectorAll('[data-tagid="' + id + '"]');
+                tagsobjs.forEach(function (tag) {
+                    tag.remove();
+                });
+                document.querySelector('[data-tagselect="' + id + '"]').remove();
+            } else {
+                alert("Error " + response.resp);
+            }
+        });
+
+    }
 }

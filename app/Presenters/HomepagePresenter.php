@@ -91,6 +91,63 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
                 $file = json_encode($file, JSON_PRETTY_PRINT);
                 file_put_contents('../storage/data.json', $file);
                 $this->sendJson(['resp' => "done", "id" => $id]);
+            } else if ($data["action"] == "addTag") {
+                $global = file_get_contents('../storage/global.json');
+                $global = json_decode($global, true);
+                $id = $global["tag"];
+                $global["tag"] = $global["tag"] + 1;
+
+                $file = file_get_contents('../storage/data.json');
+                $file = json_decode($file, true);
+                $user = $_SESSION['user'];
+
+                $color = $data["color"];
+                $name = $data["name"];
+
+                $file[$user]["tags"]["$id"] = [
+                    "color" => $color,
+                    "name" => $name
+                ];
+
+                $file = json_encode($file, JSON_PRETTY_PRINT);
+                file_put_contents('../storage/data.json', $file);
+
+                $global = json_encode($global, JSON_PRETTY_PRINT);
+                file_put_contents('../storage/global.json', $global);
+
+                $this->sendJson(['resp' => "done", "id" => $id]);
+            } else if ($data["action"] == "editTag") {
+                $id = $data["id"];
+                $file = file_get_contents('../storage/data.json');
+                $file = json_decode($file, true);
+                $user = $_SESSION['user'];
+                $color = $data["color"];
+                $name = $data["name"];
+
+                $file[$user]["tags"]["$id"] = [
+                    "color" => $color,
+                    "name" => $name
+                ];
+
+                $file = json_encode($file, JSON_PRETTY_PRINT);
+                file_put_contents('../storage/data.json', $file);
+                $this->sendJson(['resp' => "done", "id" => $id]);
+            } else if ($data["action"] == "deleteTag") {
+                //delete tag
+                $id = $data["id"];
+                $file = file_get_contents('../storage/data.json');
+                $file = json_decode($file, true);
+                $user = $_SESSION['user'];
+                unset($file[$user]["tags"][$id]);
+                foreach ($file[$user]["notes"] as $key => $value) {
+                    if (in_array($id, $value["tags"])) {
+                        $akey = array_search($id, $value["tags"]);
+                        unset($file[$user]["notes"][$key]["tags"][$akey]);
+                    }
+                }
+                $file = json_encode($file, JSON_PRETTY_PRINT);
+                file_put_contents('../storage/data.json', $file);
+                $this->sendJson(['resp' => "done", "id" => $id]);
             }
         }
 
@@ -123,7 +180,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
                 $finalNotes[$index]['tags'][$index2] = array(
                     'name' => $tags[$tag]['name'],
-                    'color' => "background-color:".$color
+                    'color' => "background-color:".$color,
+                    'id' => $tag
                 );
                 
 
@@ -135,8 +193,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
             $index++;
         }
 
-        $this->template->notes = $finalNotes;
+        $this->template->notes = array_reverse($finalNotes);
 
+
+        foreach ($tags as $id => $tag) {
+            $tags[$id]["style"] = "background-color: ".$tags[$id]["color"];
+        }
         
 
         $this->template->tags = $tags;
