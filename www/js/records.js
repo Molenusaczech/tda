@@ -560,3 +560,32 @@ function tagDelete(id) {
 
     }
 }
+
+function tagClick(id) {
+    var tagobjs = document.querySelectorAll('[data-tagselect] input[type="checkbox"]:checked');
+    //console.log(tagobjs);
+    var tagids = [];
+    tagobjs.forEach(function (tag) {
+        tagids.push(tag.parentElement.dataset.tagselect);
+    });
+    console.log(tagids);
+    var rows = document.querySelectorAll('[data-desc]');
+    console.log (rows);
+    var current = 0;
+    rows.forEach(function (row) {
+        current = 0;
+        tagids.forEach(function (tagid) {
+            //console.log(row.getAttribute("data-tags-"+tagid));
+            if (row.getAttribute("data-tags-"+tagid) !== null) {
+                current++;
+                //console.log("test");
+            }
+        });
+        if (current >= tagids.length) {
+            row.style.display = "table-row";
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+}

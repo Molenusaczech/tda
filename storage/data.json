@@ -91,12 +91,11 @@
                 "lang": "blue",
                 "lenght": "23",
                 "rating": "3",
-                "tags": [
-                    "1",
-                    "5",
-                    "9",
-                    "8"
-                ]
+                "tags": {
+                    "0": "1",
+                    "1": "5",
+                    "3": "8"
+                }
             },
             "40": {
                 "description": "lul",
@@ -115,11 +114,10 @@
                 "lang": "klklkl",
                 "lenght": "1",
                 "rating": "2",
-                "tags": [
-                    "9",
-                    "10",
-                    "11"
-                ]
+                "tags": {
+                    "1": "10",
+                    "2": "11"
+                }
             },
             "42": {
                 "description": "khkj",
@@ -157,10 +155,6 @@
             "8": {
                 "color": "#00ffe1",
                 "name": "test1"
-            },
-            "9": {
-                "color": "#000000",
-                "name": "test2"
             },
             "10": {
                 "color": "#ffffff",
