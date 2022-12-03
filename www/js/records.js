@@ -216,6 +216,7 @@ function save(id) {
     var description = document.getElementsByName("description")[0].value;
     console.log("description " + description);
     var date = document.getElementsByName("date")[0].value;
+    var timestamp = new Date(date).getTime() / 1000; 
     console.log("date " + date);
     var lang = document.getElementsByName("lang")[0].value;
     console.log("lang " + lang);
@@ -225,6 +226,20 @@ function save(id) {
     console.log("rating " + rating);
 
     var tagobjs = document.querySelectorAll('[data-tagval]');
+
+    //console.log("datesTest");
+    //console.log(new Date(document.getElementById("dateFrom").value).toISOString);
+    //console.log(new Date(date).toISOString);
+
+    if (new Date(document.getElementById("dateFrom").value) > new Date(date)) {
+        //console.log("date from");
+        document.getElementById("dateFrom").value = new Date(date).toISOString().slice(0,16);
+    }
+
+    if (new Date(document.getElementById("dateTo").value) < new Date(date)) {
+        console.log("date to");
+        document.getElementById("dateTo").value = new Date(date).toISOString().slice(0,16);
+    }
 
     var curtags = [];
 
@@ -268,7 +283,7 @@ function save(id) {
 
                     var tagobjs = document.querySelectorAll('[data-tagval]');
 
-                    var datas = "data-desc='" + description + "' data-date='" + date + "' data-lang='" + lang + "' data-lenght='" + lenght + "' data-rating='" + rating + "'";
+                    var datas = "data-desc='" + description + "' data-date='" + date + "' data-lang='" + lang + "' data-lenght='" + lenght + "' data-rating='" + rating + "' data-timestamp='" + timestamp + "'";
 
                     var datatags = "";
                     tagobjs.forEach(function (tag) {
@@ -352,7 +367,7 @@ function save(id) {
 
                     var tagobjs = document.querySelectorAll('[data-tagval]');
 
-                    var datas = "data-desc='" + description + "' data-date='" + date + "' data-lang='" + lang + "' data-lenght='" + lenght + "' data-rating='" + rating + "'";
+                    var datas = "data-desc='" + description + "' data-date='" + date + "' data-lang='" + lang + "' data-lenght='" + lenght + "' data-rating='" + rating + "' data-timestamp='" + timestamp + "'";
 
 
                     var datatags = "";
@@ -562,15 +577,23 @@ function tagDelete(id) {
 }
 
 function tagClick(id) {
+    filter();
+}
+
+function filter() {
+    console.log("filter");
+
     var tagobjs = document.querySelectorAll('[data-tagselect] input[type="checkbox"]:checked');
     //console.log(tagobjs);
     var tagids = [];
     tagobjs.forEach(function (tag) {
         tagids.push(tag.parentElement.dataset.tagselect);
     });
-    console.log(tagids);
+    //console.log(tagids);
     var rows = document.querySelectorAll('[data-desc]');
-    console.log (rows);
+    //console.log (rows);
+
+
     var current = 0;
     rows.forEach(function (row) {
         current = 0;
@@ -581,7 +604,34 @@ function tagClick(id) {
                 //console.log("test");
             }
         });
-        if (current >= tagids.length) {
+
+        var rawdate = row.getAttribute('"data-date');
+        var rowDate = new Date(rawdate+":00.000Z");
+        //console.log(rowDate);
+
+        var lenght = Number(row.getAttribute("data-lenght"));
+        var lang = row.getAttribute("data-lang");
+        var rating = row.getAttribute("data-rating");
+
+        if (rowDate >= new Date(document.getElementById("dateFrom").value)) current++;
+        
+        if (document.getElementById("lang").value == "all") {
+            current++;
+        } else if (document.getElementById("lang").value == lang) {
+            current++;
+        }
+
+        if (rowDate <= new Date(document.getElementById("dateTo").value)) current++;
+        
+        if (lenght >= Number(document.getElementById("lenghtFrom").value)) current++;
+
+        if (lenght <= Number(document.getElementById("lenghtTo").value)) current++;
+
+        if (rating >= Number(document.getElementById("ratingFrom").value)) current++;
+
+        if (rating <= Number(document.getElementById("ratingTo").value)) current++;
+
+        if (current >= tagids.length + 7) {
             row.style.display = "table-row";
         } else {
             row.style.display = "none";
