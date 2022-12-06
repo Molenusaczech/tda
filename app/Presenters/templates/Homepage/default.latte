@@ -9,7 +9,10 @@
 </div>
 <div id="wrapper">
 	<div class="side-container">
-	Tags
+	<h2>Tags</h2>
+
+<div class="side-container">
+Tags
 
 	{foreach $tags as $tid => $tag}
 
@@ -30,18 +33,68 @@
 
 	{/foreach}
 
+ <span class="popup" id="newTag">
+ 		<span onclick=tagPopup("new")>+</span>
+        <span class="tagPopup" id="newPopup">
+			<input type="color" id="newColor" value="#000000">
+			<input type="text" id="newName" placeholder="Jméno štítku">		
+			<input type="button" value="Vytvořit" onclick=tagCreate("new")>
+        </span>
+</span>
+
+	</div>
+
+<div class="filter-container">
+
+<h2>Filtr</h2>
+
+Datum:
+<input type="datetime-local" id="dateFrom" value="{$filters["mintime"]}" onchange="filter()">
+- 
+<input type="datetime-local" id="dateTo" value="{$filters["maxtime"]}" onchange="filter()">
+
+<br>
+
+Jazyk:
+<select id="lang" onchange="filter()">
+
+<option value="all">Vše</option>
+
+{foreach $filters["langlist"] as $lang}
+
+<option value="{$lang}">{$lang}</option>
+
+{/foreach}
+
+</select>
+
+<br>
+
+Délka:
+<input type="number" id="lenghtFrom" value="{$filters["minlenght"]}" onchange="filter()">
+- 
+<input type="number" id="lenghtTo" value="{$filters["maxlenght"]}" onchange="filter()">
+
+<br>
+
+Hodnocení:
+<input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchange="filter()">
+- 
+<input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
+
+</div>
+
 	<span class="popup" id="newTag">
-			<span onclick=tagPopup("new")>+</span>
+		<span onclick=tagPopup("new")>+</span>
 			<span class="tagPopup" id="newPopup">
 				<input type="color" id="newColor" value="#000000">
 				<input type="text" id="newName" placeholder="Jméno štítku">		
 				<input type="button" value="Vytvořit" onclick=tagCreate("new")>
 			</span>
-			</span>
-
+		</span>
 	</div>
 
-	<div class="main-container">
+<div class="main-container">
 
 	<div id="table-wrapper">
 	<table id="mainTable">
@@ -90,6 +143,7 @@
 </div>
 <script> 
 var tags = {$tags};
+var filterdate = {$filters};
 </script>
 
 <script src="{$basePath}/js/records.js"></script>

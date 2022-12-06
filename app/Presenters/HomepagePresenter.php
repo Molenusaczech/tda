@@ -64,7 +64,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
                 $file = json_decode($file, true);
                 $user = $_SESSION['user'];
                 unset($file[$user]["notes"][$id]);
-                $file = json_encode($file);
+                $file = json_encode($file, JSON_PRETTY_PRINT);
                 file_put_contents('../storage/data.json', $file);
                 $this->sendJson(['resp' => "done", "id" => $id]);
             } else if ($data["action"] == "edit") {
@@ -166,6 +166,13 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
         $finalNotes = array();
 
+        $maxtime = 0;
+        $mintime = 9999999999999999;
+        $langlist = array();
+        $maxlenght = 0;
+        $minlenght = 9999999999999999;
+        $minrating = 9999999999999999;
+        $maxrating = 0;
         
         foreach ($notes as $index => $note) {
             $finalNotes[$index] = $note;
@@ -188,12 +195,62 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
                 $index2++;
             }
 
-            $finalNotes[$index]['data'] = 'data-date='.$note["date"]." data-desc=".$note["description"]." data-lang=".$note["lang"]." data-lenght=".$note["lenght"]." data-rating=".$note["rating"]." ".$tagtext;
+            $timestamp = strtotime("".$note["date"]."");
 
-            $index++;
+            if ($timestamp > strtotime("".$maxtime."")) {
+                //$maxtime = $timestamp;
+                $date = date("Y-m-d", $timestamp);
+                $time = date("H:i", $timestamp);
+                $maxtime = $date."T".$time;
+            }
+
+            if ($timestamp < strtotime("".$mintime."")) {
+                //$mintime = $timestamp;
+                $date = date("Y-m-d", $timestamp);
+                $time = date("H:i", $timestamp);
+                $mintime = $date."T".$time;
+            }
+
+            if (!in_array($note["lang"], $langlist)) {
+                array_push($langlist, $note["lang"]);
+            }
+
+            $lenght = $note["lenght"];
+            if ($lenght > $maxlenght) {
+                $maxlenght = $note["lenght"];
+            }
+
+            if ($lenght < $minlenght) {
+                $minlenght = $note["lenght"];
+            }
+
+            $rating = $note["rating"];
+            if ($rating < $minrating) {
+                $minrating = $note["rating"];
+            }
+
+            if ($rating > $maxrating) {
+                $maxrating = $note["rating"];
+            }	
+
+            $finalNotes[$index]['data'] = 'data-date='.$note["date"]." data-desc=".$note["description"]." data-lang=".$note["lang"]." data-lenght=".$note["lenght"]." data-rating=".$note["rating"]." data-timestamp=".$timestamp." ".$tagtext;
+            
+
+            //$index++;
         }
-
-        $this->template->notes = array_reverse($finalNotes);
+        
+        $filters = array(
+            'maxtime' => $maxtime,
+            'mintime' => $mintime,
+            'langlist' => $langlist,
+            'maxlenght' => $maxlenght,
+            'minlenght' => $minlenght,
+            'minrating' => $minrating,
+            'maxrating' => $maxrating
+        );
+        
+        $this->template->filters = $filters;
+        $this->template->notes = $finalNotes;
 
 
         foreach ($tags as $id => $tag) {
