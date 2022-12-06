@@ -14,10 +14,10 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 		$form->addText('name', '')
-        -> setHtmlAttribute('placeholder', 'Name');
-		$form->addPassword('password', 'Password:')
+        -> setHtmlAttribute('placeholder', 'Username');
+		$form->addPassword('password', '')
         -> setHtmlAttribute('placeholder', 'Password');
-		$form->addSubmit('send', 'Sign up');
+		$form->addSubmit('send', 'Sign in');
 		$form->onSuccess[] = [$this, 'loginFormSent'];
 		return $form;
 	}
