@@ -5,30 +5,33 @@
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
 	<span id="logout"></span>
+	<span id="admin"></span>
 </div>
+<div id="wrapper">
+	<div class="side-container">
+	<h2>Tags</h2>
 
 <div class="side-container">
-<div class="tags-container">
-<h2>Tags</h2>
+Tags
 
-{foreach $tags as $tid => $tag}
+	{foreach $tags as $tid => $tag}
 
-<span style={$tag['style']} class="tagSelector" data-tagselect={$tid}> 
-	<input type="checkbox" onClick=tagClick({$tid})> 
-	<span data-tagtitle={$tid}> {$tag["name"]} </span> 
-	
-	 <span class="popup">
- 		<span onClick=tagPopup({$tid})>✎</span>
-        <span class="tagPopup" data-popup={$tid}>
-			<input type="color" value="{$tag['color']}">
-			<input type="text" placeholder="Jméno štítku" value="{$tag['name']}">		
-			<input type="button" value="Upravit" onclick=tagEdit({$tid})>
-        </span>
-        </span>
-		<span onClick=tagDelete({$tid}) class="clickable">🗑</span>
-</span>
+	<span style={$tag['style']} class="tagSelector" data-tagselect={$tid}> 
+		<input type="checkbox" onClick=tagClick({$tid})> 
+		<span data-tagtitle={$tid}> {$tag["name"]} </span> 
+		
+		<span class="popup">
+			<span onClick=tagPopup({$tid})>✎</span>
+			<span class="tagPopup" data-popup={$tid}>
+				<input type="color" value="{$tag['color']}">
+				<input type="text" placeholder="Jméno štítku" value="{$tag['name']}">		
+				<input type="button" value="Upravit" onclick=tagEdit({$tid})>
+			</span>
+			</span>
+			<span onClick=tagDelete({$tid}) class="clickable">🗑</span>
+	</span>
 
-{/foreach}
+	{/foreach}
 
  <span class="popup" id="newTag">
  		<span onclick=tagPopup("new")>+</span>
@@ -39,7 +42,7 @@
         </span>
 </span>
 
-</div>
+	</div>
 
 <div class="filter-container">
 
@@ -81,12 +84,21 @@ Hodnocení:
 
 </div>
 
-</div>
+	<span class="popup" id="newTag">
+		<span onclick=tagPopup("new")>+</span>
+			<span class="tagPopup" id="newPopup">
+				<input type="color" id="newColor" value="#000000">
+				<input type="text" id="newName" placeholder="Jméno štítku">		
+				<input type="button" value="Vytvořit" onclick=tagCreate("new")>
+			</span>
+		</span>
+	</div>
 
 <div class="main-container">
 
-<table style="border: 1px solid #000000;" id="mainTable">
-<tr id="tableTitle">
+	<div id="table-wrapper">
+	<table id="mainTable">
+	<tr id="tableTitle">
 
 <th>Popis<span id="desc-sort"></span></th>
 <th class="sort" onclick=sort("date")>Datum<span id="date-sort"></span></th>
@@ -95,39 +107,40 @@ Hodnocení:
 <th class="sort" onclick=sort("rating")>Hodnocení<span id="rate-sort"></span></th>
 <th>Štítky</th>
 
-</tr>
-{foreach $notes as $id => $t}
+	</tr>
+	{foreach $notes as $id => $t}
 
-<tr {$t["data"]} data-id={$id}> 
+	<tr {$t["data"]} data-id={$id}> 
 
-<td>{$t["description"]}</td>
-<td>{$t["date"]}</td>
-<td>{$t["lang"]}</td>
-<td>{$t["lenght"]} min</td>
-<td>{$t["rating"]}*</td>
+	<td>{$t["description"]}</td>
+	<td>{$t["date"]}</td>
+	<td>{$t["lang"]}</td>
+	<td>{$t["lenght"]} min</td>
+	<td>{$t["rating"]}<span class="star"><span></td>
 
-<td> 
+	<td> 
 
-{foreach $t["tags"] as $tag}
+	{foreach $t["tags"] as $tag}
 
-<span style={$tag['color']} data-tagid={$tag["id"]}>{$tag['name']}</span>
+	<span style={$tag['color']} data-tagid={$tag["id"]}>{$tag['name']}</span>
 
-{/foreach}
+	{/foreach}
 
-</td>
-<td> <input type="button" name="editButton" value="Upravit" onClick=edit({$id})> </td>
-<td> <input type="button" value="Smazat" onClick=del({$id})> </td>
+	</td>
+	<td> <input type="button" name="editButton" value="Upravit" onClick=edit({$id})> </td>
+	<td> <input type="button" value="Smazat" onClick=del({$id})> </td>
 
 
-</tr>
+	</tr>
 
-{/foreach}
-</table>
+	{/foreach}
+	</table>
 
-<input id="addButton" type="button" value="Přidat" onClick=add()>
-
+	<input id="addButton" type="button" value="Přidat" onClick=add()>
+	
+	</div>
+	</div>
 </div>
-
 <script> 
 var tags = {$tags};
 var filterdata = {$filters};
