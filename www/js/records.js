@@ -216,7 +216,7 @@ function save(id) {
     var description = document.getElementsByName("description")[0].value;
     console.log("description " + description);
     var date = document.getElementsByName("date")[0].value;
-    var timestamp = new Date(date).getTime() / 1000; 
+    var timestamp = new Date(date).getTime() / 1000;
     console.log("date " + date);
     var lang = document.getElementsByName("lang")[0].value;
     console.log("lang " + lang);
@@ -233,12 +233,12 @@ function save(id) {
 
     if (new Date(document.getElementById("dateFrom").value) > new Date(date)) {
         //console.log("date from");
-        document.getElementById("dateFrom").value = new Date(date).toISOString().slice(0,16);
+        document.getElementById("dateFrom").value = new Date(date).toISOString().slice(0, 16);
     }
 
     if (new Date(document.getElementById("dateTo").value) < new Date(date)) {
         console.log("date to");
-        document.getElementById("dateTo").value = new Date(date).toISOString().slice(0,16);
+        document.getElementById("dateTo").value = new Date(date).toISOString().slice(0, 16);
     }
 
     var curtags = [];
@@ -525,7 +525,7 @@ function tagEdit(id) {
                 document.querySelector('[data-tagselect="' + id + '"]').style.backgroundColor = color;
                 document.querySelector('[data-tagtitle="' + id + '"]').innerHTML = name;
                 //console.log(document.querySelector('[data-tagtitle="' + id + '"]'))
-                
+
 
                 //document.querySelector('[data-tagselect="' + id + '"]').style.backgroundColor = color;
                 //document.querySelector('[data-tagselect="' + id + '"]').children[1].innerHTML = name;
@@ -548,7 +548,7 @@ function tagEdit(id) {
 
 function tagDelete(id) {
     var name = tags[id].name;
-    if (confirm("Chcete vážně smazat štítek "+name+"? Toto ho odstraní ze všech záznamů!")) {
+    if (confirm("Chcete vážně smazat štítek " + name + "? Toto ho odstraní ze všech záznamů!")) {
         console.log("smazat");
         var json = JSON.stringify({
             "action": "deleteTag",
@@ -593,36 +593,124 @@ function filter() {
     var rows = document.querySelectorAll('[data-desc]');
     //console.log (rows);
 
+    // fallback
+    if (new Date(document.getElementById("dateFrom").value) < new Date(filterdata["mintime"])) {
+        var rawdate = filterdata["mintime"];
+        var rowDate = new Date(rawdate + ":00.000Z").toISOString().slice(0, 16);
+        document.getElementById("dateFrom").value = rowDate
+    }
+
+    if (new Date(document.getElementById("dateFrom").value) > new Date(filterdata["maxtime"])) {
+        var rawdate = filterdata["maxtime"];
+        var rowDate = new Date(rawdate + ":00.000Z").toISOString().slice(0, 16);
+        document.getElementById("dateFrom").value = rowDate
+    }
+
+    if (new Date(document.getElementById("dateTo").value) > new Date(filterdata["maxtime"])) {
+        var rawdate = filterdata["maxtime"];
+        var rowDate = new Date(rawdate + ":00.000Z").toISOString().slice(0, 16);
+        document.getElementById("dateTo").value = rowDate
+    }
+
+    if (new Date(document.getElementById("dateTo").value) < new Date(filterdata["mintime"])) {
+        var rawdate = filterdata["mintime"];
+        var rowDate = new Date(rawdate + ":00.000Z").toISOString().slice(0, 16);
+        document.getElementById("dateTo").value = rowDate
+    }
+
+    if (document.getElementById("lenghtFrom").value < Number(filterdata["minlenght"])) {
+        document.getElementById("lenghtFrom").value = filterdata["minlenght"];
+    }
+
+    if (document.getElementById("lenghtFrom").value > Number(filterdata["maxlenght"])) {
+        document.getElementById("lenghtFrom").value = filterdata["maxlenght"];
+    }
+
+    if (document.getElementById("lenghtTo").value > Number(filterdata["maxlenght"])) {
+        document.getElementById("lenghtTo").value = filterdata["maxlenght"];
+    }
+
+    if (document.getElementById("lenghtTo").value < Number(filterdata["minlenght"])) {
+        document.getElementById("lenghtTo").value = filterdata["minlenght"];
+    }
+
+    if (document.getElementById("ratingFrom").value < Number(filterdata["minrating"])) {
+        document.getElementById("ratingFrom").value = filterdata["minrating"];
+    }
+
+    if (document.getElementById("ratingFrom").value > Number(filterdata["maxrating"])) {
+        document.getElementById("ratingFrom").value = filterdata["maxrating"];
+    }
+
+    if (document.getElementById("ratingTo").value > Number(filterdata["maxrating"])) {
+        document.getElementById("ratingTo").value = filterdata["maxrating"];
+    }
+
+    if (document.getElementById("ratingTo").value < Number(filterdata["minrating"])) {
+        document.getElementById("ratingTo").value = filterdata["minrating"];
+    }
+
+    if (new Date(document.getElementById("dateFrom").value) > new Date(document.getElementById("dateTo").value)) {
+        document.getElementById("dateFrom").value = document.getElementById("dateTo").value;
+    }
+
+    if (Number(document.getElementById("lenghtFrom").value) > Number(document.getElementById("lenghtTo").value)) {
+        document.getElementById("lenghtFrom").value = document.getElementById("lenghtTo").value;
+    }
+
+    if (Number(document.getElementById("ratingFrom").value) > Number(document.getElementById("ratingTo").value)) {
+        document.getElementById("ratingFrom").value = document.getElementById("ratingTo").value;
+    }
 
     var current = 0;
     rows.forEach(function (row) {
         current = 0;
         tagids.forEach(function (tagid) {
             //console.log(row.getAttribute("data-tags-"+tagid));
-            if (row.getAttribute("data-tags-"+tagid) !== null) {
+            if (row.getAttribute("data-tags-" + tagid) !== null) {
                 current++;
                 //console.log("test");
             }
         });
 
         var rawdate = row.getAttribute('"data-date');
-        var rowDate = new Date(rawdate+":00.000Z");
+        var rowDate = new Date(rawdate + ":00.000Z");
         //console.log(rowDate);
 
         var lenght = Number(row.getAttribute("data-lenght"));
         var lang = row.getAttribute("data-lang");
         var rating = row.getAttribute("data-rating");
 
-        if (rowDate >= new Date(document.getElementById("dateFrom").value)) current++;
-        
+        //console.log("test");
+        //console.log(rowDate);
+
+
+        var fromdate = new Date(document.getElementById("dateFrom").value);
+
+        fromdate.setHours(fromdate.getHours() + 1);
+        //console.log(fromdate);
+        if (rowDate >= fromdate) {
+            current++;
+            //console.log("vetsi");
+        }
+
+
+        var todate = new Date(document.getElementById("dateTo").value);
+        todate.setHours(todate.getHours() + 1);
+
+        //console.log(todate);
+        if (rowDate <= todate) {
+            current++;
+            //console.log("mensi");
+        }
+
         if (document.getElementById("lang").value == "all") {
             current++;
         } else if (document.getElementById("lang").value == lang) {
             current++;
         }
 
-        if (rowDate <= new Date(document.getElementById("dateTo").value)) current++;
-        
+
         if (lenght >= Number(document.getElementById("lenghtFrom").value)) current++;
 
         if (lenght <= Number(document.getElementById("lenghtTo").value)) current++;
@@ -638,4 +726,172 @@ function filter() {
         }
     });
 
+}
+
+var method = "date";
+var method2 = "lang";
+var sortRev1 = false;
+var sortRev2 = false;
+
+function sort(sortby) {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("mainTable");
+    switching = true;
+    
+
+    if (method == sortby) {
+
+    } else if (method2 == "date") {
+        document.getElementById("date-sort").innerHTML = "";
+    } else if (method2 == "lenght") {
+        document.getElementById("lenght-sort").innerHTML = "";
+    } else if (method2 == "rating") {
+        document.getElementById("rate-sort").innerHTML = "";
+    } else if (method2 == "lang") {
+        document.getElementById("lang-sort").innerHTML = "";
+    }
+
+    
+    
+
+    if (method == sortby) {
+        sortRev1 = !sortRev1;
+    } else {
+        method2 = method;
+        method = sortby;
+        sortRev2 = sortRev1;
+        sortRev1 = false;
+    }
+
+    if (sortRev1) {
+        var symbol1 = "▼";
+    } else {
+        var symbol1 = "▲";
+    }
+
+    if (sortRev2) {
+        var symbol2 = "▼";
+    } else {
+        var symbol2 = "▲";
+    }
+
+    if (method2 == "date") {
+        document.getElementById("date-sort").innerHTML = symbol2;
+        document.getElementById("date-sort").style.color = "#555";
+    } else if (method2 == "lenght") {
+        document.getElementById("lenght-sort").innerHTML = symbol2;
+        document.getElementById("lenght-sort").style.color = "#555";
+    } else if (method2 == "rating") {
+        document.getElementById("rate-sort").innerHTML = symbol2;
+        document.getElementById("rate-sort").style.color = "#555";
+    } else if (method2 == "lang") {
+        document.getElementById("lang-sort").innerHTML = symbol2;
+        document.getElementById("lang-sort").style.color = "#555";
+    }
+
+    if (method == "date") {
+        document.getElementById("date-sort").innerHTML = symbol1;
+        document.getElementById("date-sort").style.color = "#fff";
+    } else if (method == "lenght") {
+        document.getElementById("lenght-sort").innerHTML = symbol1;
+        document.getElementById("lenght-sort").style.color = "#fff";
+    } else if (sortby == "rating") {
+        document.getElementById("rate-sort").innerHTML = symbol1;
+        document.getElementById("rate-sort").style.color = "#fff";
+    } else if (method == "lang") {
+        document.getElementById("lang-sort").innerHTML = symbol1;
+        document.getElementById("lang-sort").style.color = "#fff";
+    }
+
+    //var method = document.getElementById("sort").value;
+    //var method2 = document.getElementById("sort2").value;
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare,
+            one from current row and one from the next: */
+            //x = rows[i].getElementsByTagName("TD")[0];
+            //y = rows[i + 1].getElementsByTagName("TD")[0];
+
+            
+            if (method == "date") {
+                x = new Date(rows[i].getAttribute('"data-date'));
+                y = new Date(rows[i + 1].getAttribute('"data-date'));
+            } else if (method == "lenght") {
+                x = Number(rows[i].getAttribute("data-lenght"));
+                y = Number(rows[i + 1].getAttribute("data-lenght"));
+            } else if (method == "rating") {
+                x = Number(rows[i].getAttribute("data-rating"));
+                y = Number(rows[i + 1].getAttribute("data-rating"));
+            } else if (method == "lang") {
+                x = rows[i].getAttribute("data-lang").toLowerCase();
+                y = rows[i + 1].getAttribute("data-lang").toLowerCase();
+            }
+
+            if (sortRev1 && method != "lang") {
+                x = x * -1;
+                y = y * -1;
+            } else if (sortRev1 && method == "lang") {
+                if (x < y) {
+                    x = 1;
+                    y = -1;
+                } else if (x > y) {
+                    x = -1;
+                    y = 1;
+                }
+            }
+
+            if (x == y) {
+
+                if (method2 == "date") {
+                    x = new Date(rows[i].getAttribute('"data-date'));
+                    y = new Date(rows[i + 1].getAttribute('"data-date'));
+                } else if (method2 == "lenght") {
+                    x = Number(rows[i].getAttribute("data-lenght"));
+                    y = Number(rows[i + 1].getAttribute("data-lenght"));
+                } else if (method2 == "rating") {
+                    x = Number(rows[i].getAttribute("data-rating"));
+                    y = Number(rows[i + 1].getAttribute("data-rating"));
+                } else if (method2 == "lang") {
+                    x = rows[i].getAttribute("data-lang").toLowerCase();
+                    y = rows[i + 1].getAttribute("data-lang").toLowerCase();
+                }
+                
+                if (sortRev2 && method2 != "lang") {
+                    x = x * -1;
+                    y = y * -1;
+                } else if (sortRev2 && method2 == "lang") {
+                    if (x < y) {
+                        x = 1;
+                        y = -1;
+                    } else if (x > y) {
+                        x = -1;
+                        y = 1;
+                    }
+                }
+            }
+
+        
+            // Check if the two rows should switch place:
+            if (x > y) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
 }

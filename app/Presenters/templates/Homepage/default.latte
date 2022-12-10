@@ -88,12 +88,12 @@ Hodnocení:
 <table style="border: 1px solid #000000;" id="mainTable">
 <tr id="tableTitle">
 
-<th>description</th>
-<th>date</th>
-<th>lang</th>
-<th>lenght</th>
-<th>rating</th>
-<th>tags</th>
+<th>Popis<span id="desc-sort"></span></th>
+<th class="sort" onclick=sort("date")>Datum<span id="date-sort"></span></th>
+<th class="sort" onclick=sort("lang")>Jazyk<span id="lang-sort"></span></th>
+<th class="sort" onclick=sort("lenght")>Délka<span id="lenght-sort"></span></th>
+<th class="sort" onclick=sort("rating")>Hodnocení<span id="rate-sort"></span></th>
+<th>Štítky</th>
 
 </tr>
 {foreach $notes as $id => $t}
@@ -130,7 +130,7 @@ Hodnocení:
 
 <script> 
 var tags = {$tags};
-var filterdate = {$filters};
+var filterdata = {$filters};
 </script>
 
 <script src="{$basePath}/js/records.js"></script>

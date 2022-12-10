@@ -196,6 +196,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
             }
 
             $timestamp = strtotime("".$note["date"]."");
+            $timestamp++;
 
             if ($timestamp > strtotime("".$maxtime."")) {
                 //$maxtime = $timestamp;
