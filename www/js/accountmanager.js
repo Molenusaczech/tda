@@ -1,17 +1,24 @@
+var curid = null;
+
 function edit(user) {
     //console.log("edit user: " + user);
 
     var pos = document.querySelector('[data-account="' + user + '"]');
     //console.log(pos.children);
-    var pass = pos.children[1].innerHTML;
-    var admin = pos.children[2].innerHTML;
+    //var pass = pos.children[1].innerHTML;
+    //var admin = pos.children[2].innerHTML;
+
+    var username = pos.getAttribute("data-username");
+    var pass = pos.getAttribute("data-password");
+    var admin = pos.getAttribute("data-isadmin");
+
     //console.log(admin);
-    if (admin == "true") {
+    if (admin == "1") {
         admin = "checked";
     } else {
         admin = "";
     }
-    var html = "<tr id='addnew'><td>"+user+"</td><td><input type='text' name='password' placeholder='Heslo' value='"+pass+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
+    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Uživatelské jméno' value='"+username+"'/></td><td><input type='text' name='password' placeholder='Heslo' value='"+pass+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
     pos.insertAdjacentHTML('afterend', html);
     pos.style.display = "none";
 
@@ -73,6 +80,8 @@ function add() {
     });*/
 }
 
+var isAdmin = "";
+
 function save(user) {
     if (user == 'new') {
         //console.log("save new user");
@@ -80,11 +89,24 @@ function save(user) {
         var username = document.getElementsByName("username")[0].value;
         var password = document.getElementsByName("password")[0].value;
         var isAdmin = document.getElementsByName("admin")[0].checked;
+        if (isAdmin) {
+            var admintext = "Ano";
+            var isAdmin = "1";
+        } else {
+            var admintext = "Ne";
+            var isAdmin = "0";
+        }
+        //console.log(username);
 
         if (username == "" || password == "") {
             alert("Uživatelské jméno i heslo musí být vyplněno!");
         } else {
-            naja.makeRequest('POST', '/accountmanager/', JSON.stringify({"username": username, "password": password, "isAdmin": isAdmin, "action": "addNew"}), {
+            naja.makeRequest('POST', '/accountmanager/', JSON.stringify({
+                "username": username, 
+                "password": password, 
+                "isAdmin": isAdmin, 
+                "action": "addNew"
+            }), {
                 fetch: {
                     headers: {
                         'Content-Type': 'application/json',
@@ -95,14 +117,11 @@ function save(user) {
                 //response = JSON.parse(response);
                 if (response.resp == "done") {
                     //console.log("success");
+                    var id = response.id;
                     document.getElementById("addnew").remove();
                     var table = document.getElementById("accountTable");
-                    if (isAdmin) {
-                        var admintext = "true";
-                    } else {
-                        var admintext = "false";
-                    }
-                    var newrow = "<tr data-account="+username+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + username + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + username + "')></td></tr>";
+                    
+                    var newrow = "<tr data-account="+id+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + username + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + username + "')></td></tr>";
                     table.insertAdjacentHTML('beforeend', newrow);
                     document.getElementById("addButton").disabled = false;
 
@@ -121,14 +140,29 @@ function save(user) {
     } else {
         //console.log("updating user: " + user);
 
-        var username = user;
+        var username = document.getElementsByName("username")[0].value;
         var password = document.getElementsByName("password")[0].value;
-        var isAdmin = document.getElementsByName("admin")[0].checked;
+        var isAdmin = String(document.getElementsByName("admin")[0].checked);
+
+        if (isAdmin == "true") {
+            var admintext = "Ano"; 
+            var isAdmin = "1";
+        } else {
+            var admintext = "Ne";
+            var isAdmin = "0";
+        }
+        //console.log("adm: "+isAdmin);
 
         if (username == "" || password == "") {
             alert("Uživatelské jméno i heslo musí být vyplněno!");
         } else {
-            naja.makeRequest('POST', '/accountmanager/', JSON.stringify({"username": username, "password": password, "isAdmin": isAdmin, "action": "update"}), {
+            naja.makeRequest('POST', '/accountmanager/', JSON.stringify({
+                "id": user, 
+                "password": password, 
+                "isAdmin": isAdmin, 
+                "action": "update",
+                "username": username
+            }), {
                 fetch: {
                     headers: {
                         'Content-Type': 'application/json',
@@ -136,17 +170,16 @@ function save(user) {
                 },
             }).then(function (response) {
                 //console.log(response);
+                //console.log(isAdmin);
                 //response = JSON.parse(response);
                 if (response.resp == "done") {
                     //console.log("success");
                     document.getElementById("addnew").remove();
-                    var pos = document.querySelector("[data-account='" + username + "']");
-                    if (isAdmin) {
-                        var admintext = "true";
-                    } else {
-                        var admintext = "false";
-                    }
-                    var newrow = "<tr data-account="+username+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + username + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + username + "')></td></tr>";
+                    var pos = document.querySelector("[data-account='" + user + "']");
+                    //console.log(admintext);
+                    //console.log(username);
+                    
+                    var newrow = "<tr data-account="+user+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + user + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + user + "')></td></tr>";
                     pos.insertAdjacentHTML('afterend', newrow);
                     pos.remove();
                     document.getElementById("addButton").disabled = false;

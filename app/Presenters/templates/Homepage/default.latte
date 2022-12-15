@@ -1,18 +1,25 @@
 {* This is the welcome page, you can delete it *}
 
+{block title}
+
+Hlavní stránka
+
+{/block}
+
 {block content}
 
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
-	<span id="logout"></span>
-	<span id="admin"></span>
+	<a n:href="Login:Logout" id="logout"></a>
+	{if $admin}
+	<a n:href="AccountManager:Default" id="admin"></a>
+	{/if}
 </div>
 <div id="wrapper">
 	<div class="side-container">
 	<h2>Tags</h2>
 
 <div class="side-container">
-Tags
 
 	{foreach $tags as $tid => $tag}
 

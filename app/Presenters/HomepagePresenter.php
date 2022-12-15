@@ -158,6 +158,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 
         $notes = $data[$_SESSION['user']]['notes'];
         $tags = $data[$_SESSION['user']]['tags'];
+        $isAdmin = $data[$_SESSION['user']]['manageUsers'];;
 
         //$user = $_SESSION['user'];
 
@@ -260,6 +261,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         
 
         $this->template->tags = $tags;
+        $this->template->admin = $isAdmin;
 
     }
 

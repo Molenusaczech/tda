@@ -1,7 +1,8 @@
 {
-    "admin": {
+    "0": {
         "password": "heslo",
         "manageUsers": true,
+        "username": "admin",
         "notes": {
             "31": {
                 "description": "desc",
@@ -171,8 +172,20 @@
             }
         }
     },
-    "mole": {
+    "9": {
+        "username": "user",
         "password": "veslo",
-        "manageUsers": true
+        "manageUsers": "0",
+        "notes": {
+            "62": {
+                "description": "test",
+                "date": "2022-12-15T10:49",
+                "lang": "php",
+                "lenght": "3",
+                "rating": "4",
+                "tags": []
+            }
+        },
+        "tags": []
     }
 }

@@ -35,20 +35,42 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $file = file_get_contents('../storage/data.json');
         $file = json_decode($file, true);
 
-        if ($file[$data->name]['password'] == $data->password) {
-            $this->flashMessage('You have successfully signed up.');
+        /*if ($file[$data->name]['password'] == $data->password) {
+            //$this->flashMessage('You have successfully signed up.');
             $_SESSION['user'] = $data->name;
             $this->redirect('Homepage:');
         } else {
-            $this->flashMessage('Wrong password.');
+            $this->flashMessage('Špatné jméno nebo heslo');
+        }*/
+
+        $authed = false;
+
+        foreach ($file as $id => $udata) {
+            if ($udata['username'] == $data->name && $udata['password'] == $data->password) {
+                $authed = true;
+                $_SESSION['user'] = $id;
+                $this->redirect('Homepage:');
+            }
+        }
+
+        if (!$authed) {
+            $this->flashMessage('Špatné jméno nebo heslo');
         }
 	}
 
     public function renderDefault(): void
     {
-        if (isset($_SESSION['user'])) {
+        $file = file_get_contents('../storage/data.json');
+        $file = json_decode($file, true);
+        if (isset($_SESSION['user']) && isset($file[$_SESSION['user']])) {
             $this->redirect('Homepage:');
         }
+    }
+
+    public function actionLogout(): void
+    {
+        unset($_SESSION['user']);
+        $this->redirect('Homepage:');
     }
 
 
