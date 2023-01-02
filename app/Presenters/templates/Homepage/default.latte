@@ -1,13 +1,19 @@
 {* This is the welcome page, you can delete it *}
 
+{block title}
+
+Hlavní stránka
+
+{/block}
+
 {block content}
 
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
-	<span id="header-icons">
-		<img id="logout" src="./img/svg/logout.svg" alt="LOG OUT">
-		<img id="admin" src="./img/svg/admin.svg" alt="ADMIN PANEL">
-	</span>
+	<a n:href="Login:Logout" id="logout"></a>
+	{if $admin}
+	<a n:href="AccountManager:Default" id="admin"></a>
+	{/if}
 </div>
 <div id="wrapper">
 	<div id="side-container">

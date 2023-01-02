@@ -25,34 +25,48 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
             if ($json[$author]["manageUsers"] == true) {
 
                 if ($data["action"] == "addNew") {
-                    $json[$user]['password'] = $data['password'];
-                    $json[$user]['manageUsers'] = $data['isAdmin'];
-
                     if (!preg_match('/^\pL+$/u', $user)) {
                         $this->sendJson(['resp' => "Uživatelské jméno může obsahovat pouze písmena"]);
                      }
 
-                    $json = json_encode($json);
+                    $global = file_get_contents('../storage/global.json');
+                    $global = json_decode($global, true);
+                    $id = $global["user"];
+                    $global["user"] = $global["user"] + 1;
+
+                    $json[$id]['username'] = $user;
+                    $json[$id]['password'] = $data['password'];
+                    $json[$id]['manageUsers'] = $data['isAdmin'];
+                    $json[$id]['notes'] = [];
+                    $json[$id]['tags'] = [];
+
+                    $json = json_encode($json, JSON_PRETTY_PRINT);
                     file_put_contents('../storage/data.json', $json);
+
+                    $global = json_encode($global, JSON_PRETTY_PRINT);
+                    file_put_contents('../storage/global.json', $global);
         
                     $this->sendJson(['resp' => "done"]);
                 } else if ($data["action"] == "delete") {
 
-                    if ($user == "admin") {
+                    if ($data["username"] == "admin") {
                         $this->sendJson(['resp' => "Nelze smazat uživatele admin"]);
                     }
 
                     unset($json[$user]);
-                    $json = json_encode($json);
+                    $json = json_encode($json, JSON_PRETTY_PRINT);
                     file_put_contents('../storage/data.json', $json);
 
                     $this->sendJson(['resp' => "done"]);
                 } else if ($data["action"] == "update") {
 
-                    if (isset($json[$user])) {
-                        $json[$user]['password'] = $data['password'];
-                        $json[$user]['manageUsers'] = $data['isAdmin'];
-                        $json = json_encode($json);
+                    $id = $data["id"];
+
+                    if (isset($json[$id])) {
+                        $json[$id]['username'] = $user;
+                        $json[$id]['password'] = $data['password'];
+                        $json[$id]['manageUsers'] = $data['isAdmin'];
+                        $json = json_encode($json, JSON_PRETTY_PRINT);
                         file_put_contents('../storage/data.json', $json);
                         $this->sendJson(['resp' => "done"]);
                     } else {

@@ -1,3 +1,9 @@
+{block title}
+
+Správa účtů
+
+{/block}
+
 {block content}
 
 Account mngr
@@ -12,15 +18,15 @@ Account mngr
 
 {foreach $users as $name => $u}
 
-<tr data-account={$name}>
+<tr data-account={$name} data-username={$u["username"]} data-password={$u["password"]} data-isadmin={$u["manageUsers"]}>
 
-<td>{$name}</td>
+<td>{$u["username"]}</td>
 <td>{$u["password"]}</td>
 
 {if $u["manageUsers"]}
-<td>true</td>
+<td>Ano</td>
 {else}
-<td>false</td>
+<td>Ne</td>
 {/if}
 
 <td> <input name="editButton" type="button" value="Upravit" onClick=edit("{$name}")> </td>
