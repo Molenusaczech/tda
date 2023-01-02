@@ -4,15 +4,16 @@
 
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
-	<span id="logout"></span>
-	<span id="admin"></span>
+	<span id="header-icons">
+		<img id="logout" src="./img/svg/logout.svg" alt="LOG OUT">
+		<img id="admin" src="./img/svg/admin.svg" alt="ADMIN PANEL">
+	</span>
 </div>
 <div id="wrapper">
-	<div class="side-container">
-	<h2>Tags</h2>
+	<div id="side-container">
 
-<div class="side-container">
-Tags
+	<div id="tag-container">
+	<h2>Tags</h2>
 
 	{foreach $tags as $tid => $tag}
 
@@ -44,7 +45,7 @@ Tags
 
 	</div>
 
-<div class="filter-container">
+<div id="filter-container">
 
 <h2>Filtr</h2>
 
@@ -83,7 +84,6 @@ Hodnocení:
 <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
 
 </div>
-
 	<span class="popup" id="newTag">
 		<span onclick=tagPopup("new")>+</span>
 			<span class="tagPopup" id="newPopup">
@@ -92,7 +92,7 @@ Hodnocení:
 				<input type="button" value="Vytvořit" onclick=tagCreate("new")>
 			</span>
 		</span>
-	</div>
+</div>
 
 <div class="main-container">
 
@@ -136,8 +136,7 @@ Hodnocení:
 	{/foreach}
 	</table>
 
-	<input id="addButton" type="button" value="Přidat" onClick=add()>
-	
+	<input id="addButton" type="button" value="" onClick=add()>
 	</div>
 	</div>
 </div>
