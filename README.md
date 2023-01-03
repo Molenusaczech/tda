@@ -1,6 +1,12 @@
-# Tour de App - Nette boiler plate
+# TDA Diary
 
-Šablona pro vývoj aplikace v soutěži Tour de App společně s vytvořením a nahráním výstupu využívající framework [Nette](https://nette.org/cs/)
+# Dovysvětlení našeho pochopení rozšíření
+
+Zelené rozšíření jsme pochopili jako login systém. Programátory jsme pochopili jako uživatelské účty. Mělo by to všechny body splňovat.
+
+## Default login:
+Username: admin
+Password: heslo
 
 ## Lokální spuštění
 
@@ -21,9 +27,3 @@ Prerekvizity
 
 Aplikace bude následně přístupná na `http://localhost:8080`
 
-## Databáze
-
-Součástí vytvořeného kontejneru je databáze běžící na portu 3306. V repozitáři naleznete soubor database.sql, jehož obsah se při vytvoření kontejneru do této databáze zkopíruje.
-
-## Odevzdání
-V rámci GitHub akce se aplikace automaticky odevzdává, jediné co je potřeba udělat je v rámci repozitáře si nastavit svůj vlastní TEAM\_SECRET, který dostanete po registraci do soutěže
