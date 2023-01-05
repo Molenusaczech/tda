@@ -14,9 +14,18 @@ body {
     box-sizing: border-box;
 }
 
+/*#########################
+    HEADER
+*/
+/* #region HEADER*/
+
 #header {
     background-color: #141414;
-    display: flex;
+    /*display: flex;
+    flex-direction: row;
+    width: 100%;*/
+    display: grid;
+    grid-template-columns: 0.2fr 1fr repeat(2, 0.07fr);
 }
 
 #header > span#title {
@@ -24,7 +33,7 @@ body {
     display: inline-block;
     margin: 0.6vh;
     font-size: 4.2em;
-    margin: 0.6vw;
+    grid-area: 1 / 1 / 2 / 2;
 }
 
 #header > span#title > span {
@@ -32,138 +41,59 @@ body {
 }
 
 #header > #header-icons {
+    margin: 0;
     margin-right: 1vw;
     margin-left: auto;
     display:inline-block;
 }
-
-#header > #header-icons > #logout {
-    /*background-image: url(../img/svg/logout.svg);
+#header > #logout, #header > #admin {
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;*/
-    width: calc(4.2em - 0.6vh);
-    height: calc(4.2em - 0.6vh);
-    margin: 0.6vw;
-    display:inline-block;
+    width: 4.2em;
+    height: 4.2em;
+    margin: auto;
+    border: 0 solid transparent;
+    border-radius: 2.1em;
+    box-shadow: 0 0 0.6vw #000000;
+    transition: 300ms;
+} 
+
+#header > #logout {
+    background-image: url(../img/svg/logout.svg);
+    background-size: 2.7em;
+    background-position: 65% center;
+    grid-area: 1 / 4 / 2 / 5;
 }
 
-#header > #header-icons  > #admin {
-    /*background-image: url(../img/svg/admin.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;*/
-    width: calc(4.2em - 0.6vh);
-    height: calc(4.6em - 0.6vh);
-    margin: 0.6vw;
-    margin-top: 0.4em;
+#header  > #admin {
+    background-image: url(../img/svg/admin.svg);
+    background-size: 2.6em;
+    background-position: center center;
+    grid-area: 1 / 3 / 2 / 4;
 }
 
-
-
-/* MAIN PAGE*/
-
-#wrapper {
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-}
-div#table-wrapper {
-    width: 100%;
-    /*height: calc(100vh - 15vh);
-    height: calc(100vh - 4.2em - (2 * 0.6vw));*/
-    height: calc(100vh - 4.6em - 0.6vh - 0.6vw - 0.4em);
-    overflow: auto;
-}
-
-table#mainTable {
-    width: calc(100% - 4vw);
-    border-radius: 1vw;
-    margin: 2vw;
-    padding: 0.3vw;
-    background-color: #181818;
-    border-collapse: collapse;
-}
-
-tr#tableTitle {
-    color: #ebebeb;
-    font-size: 2em;
-    text-align: center;
-    border-bottom: 1px solid #ebebeb;
-}
-tr#tableTitle > th {
-    padding: 2.5vh;
-    text-decoration: underline;
-}
-
-table#mainTable > tbody > tr > td {
-    border: 1px solid #414141;
-    padding: 0.5vw;
-    font-size: 1.5em;
-    text-align: center;
-    color: var(--main-text-color);
-}
-table#mainTable > tbody > tr > td:first-child {
-    border-top-color: transparent;
-    border-left-color: transparent;
-}
-table#mainTable > tbody > tr > td:last-child {
-    border-top-color: transparent;
-    border-right-color: transparent;
-}
-table#mainTable > tbody > tr:not([style="display: none;"]):last-of-type > td {
-    border-bottom-color: transparent;
-}
-table#mainTable > tbody > tr:nth-of-type(2) > td {
-    border-top-color: transparent;
-}
-
-input[type="button"] {
-    background-color: #252525;
-    border-color: transparent;
-    border-radius: 0.55vw;
-    font-size: .8em;
-    color: #ebebeb;
-    padding: 0.3vw;
+#header > #logout:hover {
+    background-image: url(../img/svg/logout-invert.svg);
+    box-shadow: 0 0 0.3vw #ffffff;
     transition: 300ms;
 }
-input[type="button"]:hover {
-    background-color: #353535;
-    box-shadow: 0 0 0.5vw #000000;
-    transition: 200ms;
-}
 
-
-input#addButton {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 2.3vw;
-    margin-bottom: 2.3vw;
-    background-image: url(../img/svg/plus.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: transparent;
-    background-color: #2c9422;
-    border-radius: 0.5vw;
-    width: 2vw;
-    height: 2vw;
+#header > #admin:hover {
+    background-image: url(../img/svg/admin-invert.svg);
+    box-shadow: 0 0 0.3vw #ffffff;
     transition: 300ms;
 }
-input#addButton:hover {
-    background-color: #3cb033;
-    box-shadow: 0 0 0.5vw #000000;
-    transition: 200ms;
-}
 
-.main-container {
-    width: 74%;
-    float: left;
-}
+/* #endregion HEADER */
+
+/*#########################
+    SIDE MENU
+*/
+
+/* #region SIDE */
 
 #side-container {
     background-color: #181818;
-    height: calc(100vh - 4.6em - 0.6vh - 0.6vw - 0.4em);
+    height: calc(100vh - (4.2em + 1.2vh));
     display: block;
     width: 26%;
     float: left;
@@ -175,6 +105,10 @@ input#addButton:hover {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     background-color: #252525;
+}
+
+#side-container > #filter-container #filters {
+    margin: 0.5vw;
 }
 
 #side-container #filter-container input, #side-container #filter-container select {
@@ -277,6 +211,71 @@ span.tagSelector > input, span.tagSelector > label {
     vertical-align: middle;
     display: inline-block;
 }
+/* #endregion */
+
+
+/*#########################
+    MAIN 
+*/
+/* #region MAIN */
+
+#main-container {
+    width: 74%;
+    float: left;
+    height: calc(100vh - (4.2em + 1.2vh));
+    overflow-y: auto;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+div#table-wrapper {
+    width: 100%;
+}
+
+table#mainTable {
+    width: calc(100% - 4vw);
+    border-radius: 1vw;
+    margin: 2vw;
+    padding: 0.3vw;
+    background-color: #181818;
+    border-collapse: collapse;
+}
+
+tr#tableTitle {
+    color: #ebebeb;
+    font-size: 2em;
+    text-align: center;
+    border-bottom: 1px solid #ebebeb;
+}
+tr#tableTitle > th {
+    padding: 2.5vh;
+    text-decoration: underline;
+}
+
+table#mainTable > tbody > tr > td {
+    border: 1px solid #414141;
+    padding: 0.5vw;
+    font-size: 1.5em;
+    text-align: center;
+    color: var(--main-text-color);
+}
+table#mainTable > tbody > tr > td:first-child {
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+table#mainTable > tbody > tr > td:last-child {
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
+table#mainTable > tbody > tr:last-of-type > td {
+    border-bottom-color: transparent;
+}
+table#mainTable > tbody > tr:nth-of-type(2) > td {
+    border-top-color: transparent;
+}
 
 /* TAGS IN THE TABLE */
 
@@ -292,20 +291,26 @@ table#mainTable > tbody > tr > td > span[data-tagid] {
     margin: 0.2vw;
 }
 
-/*ICONS*/
-
-.star {
-    background-image: url(../img/svg/star.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: inline-block;
-    margin: 0.2em;
-    width: 1em;
-    height: 1em;
-    vertical-align: middle;
+input[type="button"] {
+    background-color: #252525;
+    border-color: transparent;
+    border-radius: 0.55vw;
+    font-size: .8em;
+    color: #ebebeb;
+    padding: 0.3vw;
+    transition: 300ms;
+}
+input[type="button"]:hover {
+    background-color: #353535;
+    box-shadow: 0 0 0.5vw #000000;
+    transition: 200ms;
 }
 
-/* LOGIN PAGE */
+/* #endregion MAIN */
+
+/*######################### 
+    LOGIN PAGE */
+/* #region LOGIN*/
 
 form#frm-loginForm {
     margin: 0;
@@ -351,6 +356,59 @@ form#frm-loginForm input.button:hover {
     transition: 0.2s;
 }
 
+/* #endregion LOGIN*/
+
+/*#########################
+    ICONS
+*/
+/* #region ICONS */
+.star {
+    background-image: url(../img/svg/star.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin: 0.2em;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+}
+
+/* #endregion ICONS */
+
+/*######################### 
+    OTHER 
+*/
+/* #region OTHER*/
+
+input#addButton {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 2.3vw;
+    margin-bottom: 2.3vw;
+    background-image: url(../img/svg/plus-blue.svg);
+    background-size: 2.3vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: transparent;
+    background-color: #3b3b3b;
+    border-radius: 1.75vw;
+    width: 3.5vw;
+    height: 3.5vw;
+    transition-duration: 300ms;
+    transition-property: box-shadow, background-color;
+    box-shadow: 0 0 0.5vw #000000;
+}
+input#addButton:hover {
+    background-color: #479cd6;
+    background-image: url(../img/svg/plus-gray.svg);
+    transition-property: box-shadow, background-color;
+    transition: 300ms;
+    box-shadow: 0 0 0.5vw #ffffff;
+}
+    
 .sort {
     cursor: pointer;
 }
+
+/* #endregion OTHER */
