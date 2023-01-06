@@ -10,10 +10,10 @@ Hlavní stránka
 
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
-	<a n:href="Login:Logout" id="logout"></a>
 	{if $admin}
 	<a n:href="AccountManager:Default" id="admin"></a>
 	{/if}
+	<a n:href="Login:Logout" id="logout"></a>
 </div>
 <div id="wrapper">
 	<div id="side-container">
@@ -54,7 +54,7 @@ Hlavní stránka
 <div id="filter-container">
 
 <h2>Filtr</h2>
-
+<div id="filters">
 Datum:
 <input type="datetime-local" id="dateFrom" value="{$filters["mintime"]}" onchange="filter()">
 - 
@@ -78,16 +78,14 @@ Jazyk:
 <br>
 
 Délka:
-<input type="number" id="lenghtFrom" value="{$filters["minlenght"]}" onchange="filter()">
-- 
-<input type="number" id="lenghtTo" value="{$filters["maxlenght"]}" onchange="filter()">
+Od: <input type="number" id="lenghtFrom" value="{$filters["minlenght"]}" onchange="filter()">
+Do: <input type="number" id="lenghtTo" value="{$filters["maxlenght"]}" onchange="filter()">
 
 <br>
 
 Hodnocení:
-<input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchange="filter()">
-- 
-<input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
+Od: <input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchange="filter()">
+Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
 
 </div>
 	<span class="popup" id="newTag">
@@ -99,8 +97,8 @@ Hodnocení:
 			</span>
 		</span>
 </div>
-
-<div class="main-container">
+</div>
+<div id="main-container">
 
 	<div id="table-wrapper">
 	<table id="mainTable">
