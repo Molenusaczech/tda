@@ -895,3 +895,5 @@ function sort(sortby) {
         }
     }
 }
+
+sort("date");
