@@ -419,6 +419,11 @@ function save(id) {
 
 function tagPopup(id) {
 
+    if (id == "new" && document.getElementById("newPopup").classList.contains("show")) {
+        document.getElementsByClassName("show")[0].classList.remove("show");
+        return;
+    }
+
     if (document.getElementsByClassName("show").length != 0 && document.getElementsByClassName("show")[0].dataset.popup != id) {
         document.getElementsByClassName("show")[0].classList.remove("show");
     }
