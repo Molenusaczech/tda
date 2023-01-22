@@ -12,6 +12,7 @@ body {
     background-color: var(--main-bg-color);
     color: var(--main-text-color);
     box-sizing: border-box;
+    overflow-y: hidden;
 }
 
 /*#########################
@@ -21,9 +22,6 @@ body {
 
 #header {
     background-color: #141414;
-    /*display: flex;
-    flex-direction: row;
-    width: 100%;*/
     display: grid;
     grid-template-columns: 0.2fr 1fr repeat(2, 0.07fr);
 }
@@ -97,6 +95,8 @@ body {
     display: block;
     width: 26%;
     float: left;
+    overflow-y: auto;
+    z-index: 1;
 }
 #side-container h2 {
     color: #ebebeb;
@@ -124,6 +124,33 @@ body {
     outline: none;
     box-shadow: 0 0 0.5vw #000000;
     transition: 300ms;
+}
+
+
+span#newTag > span[onclick] {
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(../img/svg/plus-blue.svg);
+    background-size: 1.4vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: transparent;
+    background-color: #3b3b3b;
+    border-radius: 0.85vw;
+    width: 1.8vw;
+    height: 1.8vw;
+    transition-duration: 300ms;
+    transition-property: box-shadow, background-color;
+    box-shadow: 0 0 0.5vw #000000;
+}
+
+span#newTag span[onclick]:hover {
+    background-color: #479cd6;
+    background-image: url(../img/svg/plus-gray.svg);
+    transition-property: box-shadow, background-color;
+    transition: 300ms;
+    box-shadow: 0 0 0.5vw #ffffff;
 }
 
 /* Popup container */
@@ -171,7 +198,8 @@ body {
     animation: fadeIn 1s
 }
 
-.tagPopup {
+.tagPopup /* FIX POSITION WITH JS*/ {
+    position: absolute;
     visibility: hidden;
     width: 320px;
     background-color: #555;
@@ -179,10 +207,9 @@ body {
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
+    z-index: 2;
+    top: -200%;
+    left: -150%;
     /*margin-left: -80px;*/
 }
 
@@ -198,21 +225,22 @@ body {
 span.tagSelector {
     display: inline-block;
     padding: 6px;
-    border-radius: 25px;
+    border-radius: 1.5em;
     text-align: center;
     vertical-align: middle;
-    font-size: 16px;
+    font-size: 1.5em;
     font-weight: 600;
-    line-height: 20px;
+    line-height: 1.3em;
     margin: 0.2vw;
 }
 
 span.tagSelector > input, span.tagSelector > label {
     vertical-align: middle;
     display: inline-block;
+    width: 2.5vh;
+    height: 2.5vh;
 }
 /* #endregion */
-
 
 /*#########################
     MAIN 
@@ -252,7 +280,6 @@ tr#tableTitle {
 }
 tr#tableTitle > th {
     padding: 2.5vh;
-    text-decoration: underline;
 }
 
 table#mainTable > tbody > tr > td {
@@ -275,6 +302,16 @@ table#mainTable > tbody > tr:last-of-type > td {
 }
 table#mainTable > tbody > tr:nth-of-type(2) > td {
     border-top-color: transparent;
+}
+
+table#mainTable > tbody > tr > th.sort {
+    text-decoration: underline;
+    transition: 500ms;
+}
+table#mainTable > tbody > tr > th.sort:hover {
+    text-decoration: underline;
+    transition: 500ms;
+    text-decoration-color: #479cd6;
 }
 
 /* TAGS IN THE TABLE */
@@ -312,10 +349,15 @@ input[type="button"]:hover {
     LOGIN PAGE */
 /* #region LOGIN*/
 
+form#frm-loginForm > table > tbody > tr > td {
+    border: none;
+    background-color: transparent;
+}
+
 form#frm-loginForm {
     margin: 0;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
@@ -357,6 +399,45 @@ form#frm-loginForm input.button:hover {
 }
 
 /* #endregion LOGIN*/
+
+/*######################### 
+    ADMIN PAGE */
+
+/* #region ADMIN*/
+div#adminTitle {
+    width: 100%;
+    height: 2.4em;
+    background-color: #181818;
+    color: #ebebeb;
+    font-size: 2em;
+    text-align: center;
+    line-height: 2.4em;
+    border-bottom: 1px solid #ebebeb;
+}
+
+table#accountTable {
+    border-radius: 1vw;
+    margin: 2vw;
+    padding: 0.3vw;
+    border-collapse: collapse;
+}
+table#accountTable th, td {
+    background-color: #181818;
+    padding: 0.5vw;
+    text-align: center;
+    font-size: 1.5em;
+    color: #ebebeb;
+    border: 1px solid #ebebeb;
+}
+table#accountTable input[type="text"] {
+    background-color: #141414;
+    color: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 7px;
+    margin: 5px;
+}
+/* #endregion ADMIN*/
 
 /*#########################
     ICONS

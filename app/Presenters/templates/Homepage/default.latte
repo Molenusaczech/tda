@@ -41,7 +41,7 @@ Hlavní stránka
 	{/foreach}
 
  <span class="popup" id="newTag">
- 		<span onclick=tagPopup("new")>+</span>
+ 		<span onclick=tagPopup("new")></span>
         <span class="tagPopup" id="newPopup">
 			<input type="color" id="newColor" value="#000000">
 			<input type="text" id="newName" placeholder="Jméno štítku">		
@@ -88,14 +88,6 @@ Od: <input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchang
 Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
 
 </div>
-	<span class="popup" id="newTag">
-		<span onclick=tagPopup("new")>+</span>
-			<span class="tagPopup" id="newPopup">
-				<input type="color" id="newColor" value="#000000">
-				<input type="text" id="newName" placeholder="Jméno štítku">		
-				<input type="button" value="Vytvořit" onclick=tagCreate("new")>
-			</span>
-		</span>
 </div>
 </div>
 <div id="main-container">
