@@ -207,7 +207,7 @@ span#newTag span[onclick]:hover {
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
-    z-index: 2;
+    z-index: 1000;
     top: -200%;
     left: -150%;
     /*margin-left: -80px;*/

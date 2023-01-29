@@ -430,10 +430,36 @@ function tagPopup(id) {
     if (id == "new") {
         var popup = document.getElementById("newPopup");
         popup.classList.toggle("show");
+        let y = window.scrollY + popup.getBoundingClientRect().top // Y
+        let x = window.scrollX + popup.getBoundingClientRect().left // X
+        let width = popup.offsetWidth;
+        let containerwidth = document.getElementById("side-container").offsetWidth;
+
+        if (x + width > containerwidth) {
+            console.log(x-width);
+            //element.style.margin.left = "-"+(x-width)*4 + "px";
+            popup.style.left = "-"+ Math.floor(x+width-containerwidth)-50 +"px";
+        }
+        console.log(x, y);
+        
     } else {
         const element = document.querySelector('[data-popup="' + id + '"]');
-        //console.log(element); // 👉️ div
         element.classList.toggle("show");
+        //let y = window.scrollY + element.getBoundingClientRect().top // Y
+        let x = window.scrollX + element.getBoundingClientRect().left // X
+        let width = element.offsetWidth;
+        let containerwidth = document.getElementById("side-container").offsetWidth;
+
+        if (x + width > containerwidth) {
+            console.log(x-width);
+            //element.style.margin.left = "-"+(x-width)*4 + "px";
+            console.log("-"+ Math.floor(x+width-containerwidth) +"px");
+            element.style.left = "-"+ Math.floor(x+width-containerwidth)-50 +"px";
+        }
+        //let height = element.offsetHeight;
+        console.log(x);
+        //console.log(element); // 👉️ div
+        
     }
 
 }

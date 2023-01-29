@@ -282,10 +282,6 @@
             "16": {
                 "color": "#000000",
                 "name": "testBLACK"
-            },
-            "17": {
-                "color": "#ffffff",
-                "name": "testWHITE"
             }
         }
     },
