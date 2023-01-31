@@ -8,6 +8,10 @@ Zelené rozšíření jsme pochopili jako login systém. Programátory jsme poch
 Username: admin
 Password: heslo
 
+## Team-spsjed
+Daniel Rajtšlégr
+Jakub Manoušek
+
 ## Lokální spuštění
 
 Prerekvizity
