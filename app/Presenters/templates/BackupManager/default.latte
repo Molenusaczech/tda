@@ -1,0 +1,37 @@
+{block title}
+
+Správa záloh
+
+{/block}
+
+{block content}
+
+<div id="Title">Backup Manager</div>
+
+<button onClick=backupCreate()>Vytvořit zálohu</button>
+
+{control createBackupForm}
+
+<table id="mainTable">
+
+{foreach $backups as $id => $backup}
+
+<tr data-id={$backup["id"]}>
+
+
+
+<td>{$backup["name"]}</td>
+<td>{$backup["time"]}</td>
+<td><a href={$backup["id"]}>Stáhnout</a></td>
+<td><button onClick=backupRestore({$backup["id"]})>Obnovit</button></td>
+<td><button onClick=backupRename({$backup["id"]})>Přejmenovat</button></td>
+<td><button onClick=backupDelete({$backup["id"]})>Smazat</button></td>
+</tr>
+
+{/foreach}
+
+</table>
+
+<script src="{$basePath}/js/backups.js"></script>
+
+{/block}

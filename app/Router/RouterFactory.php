@@ -18,6 +18,8 @@ final class RouterFactory
 		$router->addRoute('<presenter>/<action>[/<id>]', 'Homepage:default');
 		$router->addRoute('login[/<id>]', 'Login:default');
 		$router->addRoute('accountmanager[/<id>]', 'AccountManager:default');
+		$router->addRoute('backupmanager[/<id>]', 'BackupManager:default');
+		$router->addRoute('backupdownload/<id>', 'BackupManager:download');
 		return $router;
 	}
 }

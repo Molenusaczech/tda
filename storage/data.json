@@ -10,10 +10,7 @@
                 "lang": "php2",
                 "lenght": "5",
                 "rating": "4",
-                "tags": [
-                    "0",
-                    "1"
-                ]
+                "tags": []
             },
             "36": {
                 "description": "test",
@@ -29,10 +26,7 @@
                 "lang": "t",
                 "lenght": "2",
                 "rating": "3",
-                "tags": [
-                    "1",
-                    "5"
-                ]
+                "tags": []
             },
             "38": {
                 "description": "test",
@@ -40,9 +34,7 @@
                 "lang": "tst",
                 "lenght": "56",
                 "rating": "14",
-                "tags": [
-                    "1"
-                ]
+                "tags": []
             },
             "39": {
                 "description": "b",
@@ -50,11 +42,7 @@
                 "lang": "blue",
                 "lenght": "23",
                 "rating": "3",
-                "tags": {
-                    "0": "1",
-                    "1": "5",
-                    "3": "8"
-                }
+                "tags": []
             },
             "41": {
                 "description": "final2",
@@ -62,10 +50,7 @@
                 "lang": "klklkl",
                 "lenght": "1",
                 "rating": "2",
-                "tags": {
-                    "1": "10",
-                    "2": "11"
-                }
+                "tags": []
             },
             "6": {
                 "description": "test",
@@ -81,15 +66,7 @@
                 "lang": "phph",
                 "lenght": "54",
                 "rating": "3",
-                "tags": [
-                    "5",
-                    "8",
-                    "11",
-                    "0",
-                    "1",
-                    "10",
-                    "12"
-                ]
+                "tags": []
             },
             "10": {
                 "description": "test",
@@ -97,11 +74,7 @@
                 "lang": "5",
                 "lenght": "2",
                 "rating": "1",
-                "tags": [
-                    "0",
-                    "8",
-                    "12"
-                ]
+                "tags": []
             },
             "57": {
                 "description": "lol",
@@ -125,10 +98,7 @@
                 "lang": "js",
                 "lenght": "2",
                 "rating": "2",
-                "tags": [
-                    "11",
-                    "12"
-                ]
+                "tags": []
             },
             "62": {
                 "description": "a",
@@ -144,16 +114,6 @@
                 "lang": "<b>",
                 "lenght": "1",
                 "rating": "2",
-                "tags": [
-                    "1"
-                ]
-            },
-            "64": {
-                "description": "xss",
-                "date": "2023-01-03T15:39",
-                "lang": "<script> alert(0); <\/script>",
-                "lenght": "1",
-                "rating": "2",
                 "tags": []
             },
             "65": {
@@ -162,20 +122,15 @@
                 "lang": "vb",
                 "lenght": "1",
                 "rating": "8",
-                "tags": [
-                    "1"
-                ]
+                "tags": []
             },
             "66": {
-                "description": "dneska jsem programoval",
-                "date": "2023-01-03T18:59",
+                "description": "testnm",
+                "date": "2023-02-17T15:23",
                 "lang": "\u010de\u0161tina",
                 "lenght": "2400",
                 "rating": "10",
-                "tags": [
-                    "1",
-                    "0"
-                ]
+                "tags": []
             },
             "67": {
                 "description": "a",
@@ -186,11 +141,11 @@
                 "tags": []
             },
             "68": {
-                "description": "a",
-                "date": "2023-01-02T15:20",
-                "lang": "a",
-                "lenght": "4",
-                "rating": "4",
+                "description": "popis",
+                "date": "2023-02-14T15:05",
+                "lang": "php",
+                "lenght": "20",
+                "rating": "3",
                 "tags": []
             },
             "69": {
