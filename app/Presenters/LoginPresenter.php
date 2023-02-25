@@ -46,7 +46,7 @@ final class LoginPresenter extends Nette\Application\UI\Presenter
         $authed = false;
 
         foreach ($file as $id => $udata) {
-            if ($udata['username'] == $data->name && $udata['password'] == $data->password) {
+            if (($udata['username'] == $data->name || $udata['email'] == $data->name) && $udata['password'] == $data->password) {
                 $authed = true;
                 $_SESSION['user'] = $id;
                 $this->redirect('Homepage:');

@@ -3,6 +3,9 @@
         "password": "heslo",
         "manageUsers": true,
         "username": "admin",
+        "name": "Daniel",
+        "surname": "Rajtslegr",
+        "email": "06krtek@gmail.com",
         "notes": {
             "33": {
                 "description": "desc",
@@ -240,41 +243,13 @@
             }
         }
     },
-    "9": {
-        "username": "user",
-        "password": "veslo",
-        "manageUsers": "0",
-        "notes": {
-            "62": {
-                "description": "test",
-                "date": "2022-12-15T10:49",
-                "lang": "php",
-                "lenght": "3",
-                "rating": "4",
-                "tags": []
-            },
-            "67": {
-                "description": "dalsi",
-                "date": "2023-01-11T12:17",
-                "lang": "php",
-                "lenght": "10",
-                "rating": "3",
-                "tags": [
-                    "16"
-                ]
-            }
-        },
-        "tags": {
-            "16": {
-                "color": "#000000",
-                "name": "test"
-            }
-        }
-    },
-    "10": {
-        "username": "test",
-        "password": "test",
+    "13": {
+        "username": "zero",
+        "password": "kuba",
         "manageUsers": "1",
+        "email": "bla@bla.bla",
+        "name": "Jakub",
+        "surname": "Manou\u0161ek",
         "notes": [],
         "tags": []
     }

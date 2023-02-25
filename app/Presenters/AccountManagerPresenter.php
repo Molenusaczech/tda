@@ -37,6 +37,9 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
                     $json[$id]['username'] = $user;
                     $json[$id]['password'] = $data['password'];
                     $json[$id]['manageUsers'] = $data['isAdmin'];
+                    $json[$id]["email"] = $data["email"];
+                    $json[$id]["name"] = $data["name"];
+                    $json[$id]["surname"] = $data["surname"];
                     $json[$id]['notes'] = [];
                     $json[$id]['tags'] = [];
 
@@ -46,7 +49,7 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
                     $global = json_encode($global, JSON_PRETTY_PRINT);
                     file_put_contents('../storage/global.json', $global);
         
-                    $this->sendJson(['resp' => "done"]);
+                    $this->sendJson(['resp' => "done", "id" => $id]);
                 } else if ($data["action"] == "delete") {
 
                     if ($data["username"] == "admin") {
@@ -66,6 +69,9 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
                         $json[$id]['username'] = $user;
                         $json[$id]['password'] = $data['password'];
                         $json[$id]['manageUsers'] = $data['isAdmin'];
+                        $json[$id]["email"] = $data["email"];
+                        $json[$id]["name"] = $data["name"];
+                        $json[$id]["surname"] = $data["surname"];
                         $json = json_encode($json, JSON_PRETTY_PRINT);
                         file_put_contents('../storage/data.json', $json);
                         $this->sendJson(['resp' => "done"]);

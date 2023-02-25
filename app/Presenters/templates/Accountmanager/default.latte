@@ -11,17 +11,23 @@ Správa účtů
 <table id="accountTable">
 
 <tr>
-<th>Jméno</th>
+<th>Uživatelské Jméno</th>
 <th>Heslo</th>
+<th>Email</th>
+<th>Jméno</th>
+<th>Příjmení</th>
 <th>Admin?</th>
 </tr>
 
 {foreach $users as $name => $u}
 
-<tr data-account={$name} data-username={$u["username"]} data-password={$u["password"]} data-isadmin={$u["manageUsers"]}>
+<tr data-account={$name} data-username={$u["username"]} data-password={$u["password"]} data-isadmin={$u["manageUsers"]} data-email={$u["email"]} data-name={$u["name"]} data-surname={$u["surname"]}>
 
 <td>{$u["username"]}</td>
 <td>{$u["password"]}</td>
+<td>{$u["email"]}</td>
+<td>{$u["name"]}</td>
+<td>{$u["surname"]}</td>
 
 {if $u["manageUsers"]}
 <td>Ano</td>

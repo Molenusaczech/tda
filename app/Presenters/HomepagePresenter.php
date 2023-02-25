@@ -154,7 +154,12 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         $data = file_get_contents('../storage/data.json');
         $data = json_decode($data, true);
 
+        $user = $_SESSION['user'];
 
+        if (!isset($data[$user])) {
+            unset($_SESSION['user']);
+            $this->redirect('Homepage:');
+        }
 
         $notes = $data[$_SESSION['user']]['notes'];
         $tags = $data[$_SESSION['user']]['tags'];

@@ -11,6 +11,9 @@ function edit(user) {
     var username = pos.getAttribute("data-username");
     var pass = pos.getAttribute("data-password");
     var admin = pos.getAttribute("data-isadmin");
+    let email = pos.getAttribute("data-email");
+    let name = pos.getAttribute("data-name");
+    let surname = pos.getAttribute("data-surname");
 
     //console.log(admin);
     if (admin == "1") {
@@ -18,7 +21,7 @@ function edit(user) {
     } else {
         admin = "";
     }
-    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Uživatelské jméno' value='"+username+"'/></td><td><input type='text' name='password' placeholder='Heslo' value='"+pass+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
+    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Uživatelské jméno' value='"+username+"'/></td><td><input type='text' name='password' placeholder='Heslo' value='"+pass+"'/></td><td><input type='text' name='email' placeholder='Email' value='"+email+"'/></td><td><input type='text' name='name' placeholder='Jméno' value='"+name+"'/></td><td><input type='text' name='surname' placeholder='Přijmení' value='"+surname+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
     pos.insertAdjacentHTML('afterend', html);
     pos.style.display = "none";
 
@@ -59,7 +62,16 @@ function deleteUser(user) {
 function add() {
     //console.log("add user");
     var table = document.getElementById("accountTable");
-    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Username' value=''></td><td><input type='text' name='password' placeholder='Heslo' value=''/></td><td><input type='checkbox' name='admin'></td><td><input type='button' value='Save' onclick=save('new')></td></tr>";
+    var html = `<tr id='addnew'>
+    <td><input type='text' name='username' placeholder='Username' value=''></td>
+    <td><input type='text' name='password' placeholder='Heslo' value=''/></td>
+    <td><input type='text' name='email' placeholder='Email' value=''/></td>
+    <td><input type='text' name='name' placeholder='Jméno' value=''/></td>
+    <td><input type='text' name='surname' placeholder='Příjmení' value=''/></td>
+    <td><input type='checkbox' name='admin'></td>
+    <td><input type='button' value='Save' onclick=save('new')></td>
+    </tr>`;
+
     table.insertAdjacentHTML('beforeend', html);
     document.getElementById("addButton").disabled = true;
     var editButtons = document.querySelectorAll('[name="editButton"]');
@@ -89,6 +101,9 @@ function save(user) {
         var username = document.getElementsByName("username")[0].value;
         var password = document.getElementsByName("password")[0].value;
         var isAdmin = document.getElementsByName("admin")[0].checked;
+        let email = document.getElementsByName("email")[0].value;
+        let name = document.getElementsByName("name")[0].value;
+        let surname = document.getElementsByName("surname")[0].value;
         if (isAdmin) {
             var admintext = "Ano";
             var isAdmin = "1";
@@ -104,7 +119,10 @@ function save(user) {
             naja.makeRequest('POST', '/accountmanager/', JSON.stringify({
                 "username": username, 
                 "password": password, 
-                "isAdmin": isAdmin, 
+                "isAdmin": isAdmin,
+                "email": email,
+                "name": name,
+                "surname": surname, 
                 "action": "addNew"
             }), {
                 fetch: {
@@ -121,7 +139,7 @@ function save(user) {
                     document.getElementById("addnew").remove();
                     var table = document.getElementById("accountTable");
                     
-                    var newrow = "<tr data-account="+id+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + username + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + username + "')></td></tr>";
+                    var newrow = "<tr data-account="+id+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+" data-email="+email+" data-name="+name+" data-surname="+surname+"><td>" + username + "</td><td>" + password + "</td><td>"+email+"</td><td>"+name+"</td><td>"+surname+"</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + id + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + id + "')></td></tr>";
                     table.insertAdjacentHTML('beforeend', newrow);
                     document.getElementById("addButton").disabled = false;
 
@@ -143,6 +161,9 @@ function save(user) {
         var username = document.getElementsByName("username")[0].value;
         var password = document.getElementsByName("password")[0].value;
         var isAdmin = String(document.getElementsByName("admin")[0].checked);
+        let email = document.getElementsByName("email")[0].value;
+        let name = document.getElementsByName("name")[0].value;
+        let surname = document.getElementsByName("surname")[0].value;
 
         if (isAdmin == "true") {
             var admintext = "Ano"; 
@@ -161,7 +182,10 @@ function save(user) {
                 "password": password, 
                 "isAdmin": isAdmin, 
                 "action": "update",
-                "username": username
+                "username": username,
+                "email": email,
+                "name": name,
+                "surname": surname
             }), {
                 fetch: {
                     headers: {
@@ -178,8 +202,8 @@ function save(user) {
                     var pos = document.querySelector("[data-account='" + user + "']");
                     //console.log(admintext);
                     //console.log(username);
-                    
-                    var newrow = "<tr data-account="+user+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+"><td>" + username + "</td><td>" + password + "</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + user + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + user + "')></td></tr>";
+                    let id = user;
+                    var newrow = "<tr data-account="+id+" data-username="+username+" data-password="+password+" data-isadmin="+isAdmin+" data-email="+email+" data-name="+name+" data-surname="+surname+"><td>" + username + "</td><td>" + password + "</td><td>"+email+"</td><td>"+name+"</td><td>"+surname+"</td><td>" + admintext + "</td><td><input type='button' value='Upravit' onclick=edit('" + id + "')></td><td><input type='button' value='Smazat' onclick=deleteUser('" + id + "')></td></tr>";
                     pos.insertAdjacentHTML('afterend', newrow);
                     pos.remove();
                     document.getElementById("addButton").disabled = false;
