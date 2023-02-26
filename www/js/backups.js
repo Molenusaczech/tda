@@ -1,6 +1,8 @@
 function backupCreate() {
     let name = prompt("Zadejte název zálohy");
 
+    name = name.replace("_", "-");
+
     if (name == null || name == "") {
         return;
     }
@@ -118,6 +120,9 @@ function backupRename(name) {
     oldName = split[0];
 
     let newName = prompt("Zadejte nový název zálohy", oldName);
+
+    // replace _ with -
+    newName = newName.replace("_", "-");
 
     newName = newName+"_backup_" + split[2];
 

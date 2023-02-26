@@ -227,6 +227,23 @@ function save(id) {
 
     var tagobjs = document.querySelectorAll('[data-tagval]');
 
+
+    if (lang.length > 30) {
+        alert("Jazyk nemůže mít více než 30 znaků!");
+        return;
+    }
+
+    if (Number(lenght) < 0) {
+        alert("Délka nemůže být záporná!");
+        return;
+    }
+
+    if (Number(rating) < 0 || Number(rating) > 5) {
+        alert("Hodnocení musí být v rozmezí 0-5!");
+        return;
+    }
+
+
     //console.log("datesTest");
     //console.log(new Date(document.getElementById("dateFrom").value).toISOString);
     //console.log(new Date(date).toISOString);

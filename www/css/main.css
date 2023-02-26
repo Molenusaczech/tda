@@ -314,6 +314,15 @@ table#mainTable > tbody > tr > th.sort:hover {
     text-decoration-color: #479cd6;
 }
 
+table#mainTable input[type="text"], table#mainTable input[type="number"], table#mainTable input[type="datetime-local"] {
+    background-color: #141414;
+    color: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    padding: 7px;
+    /*margin: 5px;*/
+}
+
 /* TAGS IN THE TABLE */
 
 table#mainTable > tbody > tr > td > span[data-tagid] {
