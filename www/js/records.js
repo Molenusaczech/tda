@@ -322,7 +322,7 @@ function save(id) {
                     <td>${date}</td>
                     <td>${lang}</td>
                     <td>${lenght} min</td>
-                    <td>${rating}*</td>
+                    <td>${rating}<span class="star"></span></td>
 
                     <td> `+ tagtext + ` </td>
 
@@ -407,7 +407,7 @@ function save(id) {
                     <td>${date}</td>
                     <td>${lang}</td>
                     <td>${lenght} min</td>
-                    <td>${rating}*</td>
+                    <td>${rating}<span class="star"></span></td>
 
                     <td> `+ tagtext + ` </td>
 
