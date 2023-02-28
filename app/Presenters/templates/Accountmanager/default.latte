@@ -4,11 +4,18 @@ Správa účtů
 
 {/block}
 
+{block head}
+
+<link rel="stylesheet" href="{$basePath}/css/accountManager.css">
+
+{/block}
+
 {block content}
 
 <div id="header">
 	<span id="title">&lt;<span>ACCOUNT&nbsp;MANAGER</span>/&gt;</span>
-	<a n:href="Homepage:Default" id="admin">HOME</a>
+	<a n:href="Homepage:Default" id="home"></a>
+	<a n:href="BackupManager:Default" id="backups"></a>
 	<a n:href="Login:Logout" id="logout"></a>
 </div>
 
