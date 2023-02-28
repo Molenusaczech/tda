@@ -21,6 +21,7 @@ final class RouterFactory
 		$router->addRoute('backupmanager[/<id>]', 'BackupManager:default');
 		$router->addRoute('backupdownload/<id>', 'BackupManager:download');
 		$router->addRoute('users/<user_id>/records/<record_id>', 'Api:default');
+		$router->addRoute('users/<user_id>/records/', 'Api:secondary');
 		return $router;
 	}
 }
