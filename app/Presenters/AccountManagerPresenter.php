@@ -91,6 +91,10 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
         $file = file_get_contents('../storage/data.json');
         $file = json_decode($file, true);
 
+        $isAdmin = $file[$_SESSION['user']]['manageUsers'];
+
+        $this->template->isAdmin = $isAdmin;
+
         if (!$file[$_SESSION['user']]['manageUsers']) {
             $this->redirect('Homepage:');
         }

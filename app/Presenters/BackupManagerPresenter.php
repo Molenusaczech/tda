@@ -219,6 +219,13 @@ final class BackupManagerPresenter extends Nette\Application\UI\Presenter
         $backups = array_diff(scandir('../backups/' . $user), array('..', '.'));
         $finalBackups = array();
 
+        $file = file_get_contents('../storage/data.json');
+        $file = json_decode($file, true);
+
+        $isAdmin = $file[$_SESSION['user']]['manageUsers'];
+
+        $this->template->isAdmin = $isAdmin;
+
         foreach ($backups as $backup) {
             $backup = str_replace(".csv", "", $backup);
             $name = $backup;
