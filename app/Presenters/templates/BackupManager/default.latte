@@ -12,12 +12,16 @@ Správa záloh
 
 {block content}
 
-<div id="Title">Backup Manager</div>
+<div id="header">
+	<span id="title">&lt;<span>BACK&nbsp;UPS</span>/&gt;</span>
+	<a n:href="Homepage:Default" id="">HOME</a>
+	<a n:href="Login:Logout" id="logout"></a>
+</div>
 
-<button onClick=backupCreate()>Vytvořit zálohu</button>
+<button onClick=backupCreate()><span id="newBackupPlus"></span>Vytvořit zálohu</button>
 
 {control createBackupForm}
-
+<div id="backupsTitle">Zálohy:</div>
 <table id="mainTable">
 
 {foreach $backups as $id => $backup}

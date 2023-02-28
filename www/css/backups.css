@@ -1,3 +1,126 @@
-body {
-    /*background-color: red;*/
+table#mainTable {
+    border-collapse: collapse;
+    margin-left: 5vw;
+}
+div#backupsTitle {
+    font-size: 2em;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    padding: 1vw;
+    background-color: #181818;
+}
+button[onclick="backupCreate()"] {
+    background-color: var(--highlight-color);
+    border: none;
+    box-shadow: 0 0 0.4vw #000;
+    font-size: 1.5em;
+    padding: 0.4em;
+    margin: 1vw;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    float: left;
+    transition: 200ms;
+    margin-top: 4vw;
+}
+button[onclick="backupCreate()"]:hover {
+    background-color: #454545;
+    color: var(--main-text-color);
+    transition: 200ms;
+}
+table#mainTable > tbody > tr > td {
+    border: 1px solid #000000;
+    padding: 5px;
+}
+
+form#frm-createBackupForm {
+    box-sizing: border-box;
+}
+form#frm-createBackupForm > table {
+    border-collapse: collapse;
+    border: #7c7c7c 0.1em solid;
+    border-radius: 1em;
+    margin: 2vw;
+}
+form#frm-createBackupForm > table > tbody > tr > td, form#frm-createBackupForm > table > tbody > tr > th {
+    background-color: #181818;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+form#frm-createBackupForm > table > tbody > tr > td > input {
+    background-color: var(--highlight-color);
+    border: none;
+    color: #000;
+    box-shadow: 0 0 0.4vw #000;
+    font-size: .7em;
+    padding: 0.4em;
+    margin: 1vw;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    float: left;
+    transition: 200ms;
+    padding: auto;
+    text-align: center;
+}
+form#frm-createBackupForm > table > tbody > tr > td > input:hover {
+    background-color: #454545;
+    color: var(--main-text-color);
+    transition: 200ms;
+}
+label[for="frm-createBackupForm-file"] {
+    padding: 1vw;
+}
+
+span#newBackupPlus {
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url(../img/svg/plus-gray.svg);
+    background-size: 1.4vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: transparent;
+    width: 1.5em;
+    height: 1.5em;
+    transition-duration: 300ms;
+}
+
+button[onclick="backupCreate()"]:hover > span#newBackupPlus {
+    background-image: url(../img/svg/plus-blue.svg);
+    transition: 300ms;
+}
+
+button {
+    background-color: var(--highlight-color);
+    border: none;
+    box-shadow: 0 0 0.4vw #000;
+    font-size: .5em;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    float: left;
+    transition: 200ms;
+}
+button:hover {
+    background-color: #454545;
+    color: var(--main-text-color);
+    transition: 200ms;
+}
+table#mainTable > tbody > tr > td > a {
+    background-color: var(--highlight-color);
+    color: #000;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 0 0.4vw #000;
+    font-size: .6em;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    box-sizing: border-box;
+    float: left;
+    transition: 200ms;
+}
+table#mainTable > tbody > tr > td > a:hover {
+    background-color: #454545;
+    color: var(--main-text-color);
+    transition: 200ms;
 }
