@@ -6,6 +6,32 @@ namespace App\Presenters;
 
 use Nette;
 
+function timeFormat($minutes) {
+    $minutes = floor((float)$minutes);
+    $hours = floor($minutes / 60);
+    $minutes = $minutes % 60;
+    $seconds = 0;
+
+    if ($hours < 10) {
+        $hours = "0".$hours;
+    }
+
+    if ($minutes < 10) {
+        $minutes = "0".$minutes;
+    }
+
+    if ($seconds < 10) {
+        $seconds = "0".$seconds;
+    }
+    return $hours.":".$minutes.":".$seconds;
+}
+
+function toMinutes($time) {
+    $time = explode(":", $time);
+    $minutes = $time[0] * 60 + $time[1] + $time[2] / 60;
+    return $minutes;
+}
+
 function getRecord($id, $user)
 {
     $file = file_get_contents('../storage/data.json');
@@ -17,7 +43,7 @@ function getRecord($id, $user)
     $final = array();
     $final["id"] = $id;
     $final["date"] = Date("Y-m-d", strtotime($file[$user]["notes"][$id]["date"]));
-    $final["time-spent"] = $file[$user]["notes"][$id]["lenght"];
+    $final["time-spent"] = timeFormat($file[$user]["notes"][$id]["lenght"]);
     $final["programming-language"] = $file[$user]["notes"][$id]["lang"];
     $final["rating"] = (int)$file[$user]["notes"][$id]["rating"];
     $final["description"] = $file[$user]["notes"][$id]["description"];
@@ -48,7 +74,12 @@ function updateRecord($id, $user, $body) {
         return false;
     }
 
-    if ($body['time-spent'] < 0) {
+    if (!preg_match('/\d\d:\d\d:\d\d/', $body["time-spent"])) 
+    {
+        return false;
+    }
+
+    if (toMinutes($body['time-spent']) < 0) {
         return false;
     }
 
@@ -62,7 +93,7 @@ function updateRecord($id, $user, $body) {
 
     $newid = $body["id"];
     $date = $body["date"]."T00:01";
-    $lenght = $body["time-spent"];
+    $lenght = toMinutes($body["time-spent"]);
     $lang = $body["programming-language"];
     $rating = $body["rating"];
     $description = $body["description"];
@@ -75,6 +106,7 @@ function updateRecord($id, $user, $body) {
         "lang" => $lang,
         "lenght" => $lenght,
         "rating" => $rating,
+        "tags" => array()
     ];
 
 
@@ -87,7 +119,7 @@ function updateRecord($id, $user, $body) {
 
     $resp["id"] = $newid;
     $resp["date"] = Date("Y-m-d", strtotime($file[$user]["notes"][$newid]["date"]));
-    $resp["time-spent"] = $file[$user]["notes"][$newid]["lenght"];
+    $resp["time-spent"] = timeFormat($file[$user]["notes"][$newid]["lenght"]);
     $resp["programming-language"] = $file[$user]["notes"][$newid]["lang"];
     $resp["rating"] = (int)$file[$user]["notes"][$newid]["rating"];
     $resp["description"] = $file[$user]["notes"][$newid]["description"];
@@ -107,7 +139,7 @@ function getAllRecords($user) {
         $temp = array();
         $temp["id"] = $key;
         $temp["date"] = Date("Y-m-d", strtotime($file[$user]["notes"][$key]["date"]));
-        $temp["time-spent"] = $file[$user]["notes"][$key]["lenght"];
+        $temp["time-spent"] = timeFormat($file[$user]["notes"][$key]["lenght"]);
         $temp["programming-language"] = $file[$user]["notes"][$key]["lang"];
         $temp["rating"] = (int)$file[$user]["notes"][$key]["rating"];
         $temp["description"] = $file[$user]["notes"][$key]["description"];
@@ -128,7 +160,12 @@ function addRecord($user, $body) {
         return false;
     }
 
-    if ($body['time-spent'] < 0) {
+    if (!preg_match('/\d\d:\d\d:\d\d/', $body["time-spent"])) 
+    {
+        return false;
+    }
+
+    if (toMinutes($body['time-spent']) < 0) {
         return false;
     }
 
@@ -148,7 +185,7 @@ function addRecord($user, $body) {
     file_put_contents('../storage/global.json', $global);
     
     $date = $body["date"]."T00:01";
-    $lenght = $body["time-spent"];
+    $lenght = toMinutes($body["time-spent"]);
     $lang = $body["programming-language"];
     $rating = $body["rating"];
     $description = $body["description"];
@@ -172,7 +209,7 @@ function addRecord($user, $body) {
     $resp = array();
     $resp["id"] = $newid;
     $resp["date"] = Date("Y-m-d", strtotime($file[$user]["notes"][$newid]["date"]));
-    $resp["time-spent"] = $file[$user]["notes"][$newid]["lenght"];
+    $resp["time-spent"] = timeFormat($file[$user]["notes"][$newid]["lenght"]);
     $resp["programming-language"] = $file[$user]["notes"][$newid]["lang"];
     $resp["rating"] = (int)$file[$user]["notes"][$newid]["rating"];
     $resp["description"] = $file[$user]["notes"][$newid]["description"];
