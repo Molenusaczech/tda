@@ -1,5 +1,15 @@
+let editing = false;
+
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+    if (editing) {
+        return "Máte neuložené změny. Opravdu chcete opustit stránku?";
+    }
+}
+
 function edit(id) {
     console.log("edit " + id);
+    editing = true;
 
     var pos = document.querySelector('[data-id="' + id + '"]');
     console.log()
@@ -57,14 +67,14 @@ function edit(id) {
         <input type='datetime-local' name='date' value='${date}'/>
     </td>
     <td>
-        <input type='text' name='lang' placeholder='jazyk' value='${lang}'>
+        <input type='text' name='lang' placeholder='Jazyk' value='${lang}'>
     </td>
     <td>
-        <input type='number' name='lenght' value='${lenght}'>
+        <input type='number' name='lenght' value='${lenght}' placeholder='Délka (v minutách)'>
     </td>
 
     <td>
-        <input type='number' min=1 max=5 name="rating" value='${rating}'>
+        <input type='number' min=1 max=5 name="rating" value='${rating}' placeholder="1-5*">
     </td>
 
     <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
@@ -76,9 +86,10 @@ function edit(id) {
     </>
 
     <td>
-        <input type='button' value='Save' onclick=save('${id}')>
+        <input type='button' value='Uložit' onclick=save('${id}')>
     </td>
     </tr>`;
+
 
 
 
@@ -96,10 +107,15 @@ function edit(id) {
     editButtons.forEach(function (button) {
         button.disabled = true;
     });
+    document.getElementsByName("description")[0].focus();
 }
 
 function del(id) {
     console.log("delete " + id);
+
+    if (!confirm("Opravdu chcete smazat záznam?")) {
+        return;
+    }
 
     naja.makeRequest('POST', '/', JSON.stringify({ "action": "delete", "id": id }), {
         fetch: {
@@ -125,6 +141,7 @@ function del(id) {
 
 function add() {
     console.log("add");
+    editing = true;
 
     var pos = document.getElementById("tableTitle");
 
@@ -150,14 +167,14 @@ function add() {
         <input type='datetime-local' name='date' value=''/>
     </td>
     <td>
-        <input type='text' name='lang' placeholder='jazyk'>
+        <input type='text' name='lang' placeholder='Jazyk'>
     </td>
     <td>
-        <input type='number' name='lenght'>
+        <input type='number' name='lenght' placeholder='Délka (v minutách)'>
     </td>
 
     <td>
-        <input type='number' min=1 max=5 name="rating">
+        <input type='number' min=1 max=5 name="rating" placeholder="1-5*">
     </td>
 
     <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
@@ -168,7 +185,7 @@ function add() {
     </>
 
     <td>
-        <input type='button' value='Save' onclick=save('new')>
+        <input type='button' value='Uložit' onclick=save('new')>
     </td>
     </tr>`;
 
@@ -184,6 +201,7 @@ function add() {
     editButtons.forEach(function (button) {
         button.disabled = true;
     });
+    document.getElementsByName("description")[0].focus();
 }
 
 
@@ -212,6 +230,7 @@ function UpdateTag(id) {
 
 function save(id) {
     console.log("save " + id);
+    editing = false;
 
     var description = document.getElementsByName("description")[0].value;
     console.log("description " + description);
@@ -453,12 +472,12 @@ function tagPopup(id) {
         let containerwidth = document.getElementById("side-container").offsetWidth;
 
         if (x + width > containerwidth) {
-            console.log(x-width);
+            console.log(x - width);
             //element.style.margin.left = "-"+(x-width)*4 + "px";
-            popup.style.left = "-"+ Math.floor(x+width-containerwidth)-50 +"px";
+            popup.style.left = "-" + Math.floor(x + width - containerwidth) - 50 + "px";
         }
         console.log(x, y);
-        
+
     } else {
         const element = document.querySelector('[data-popup="' + id + '"]');
         element.classList.toggle("show");
@@ -468,15 +487,15 @@ function tagPopup(id) {
         let containerwidth = document.getElementById("side-container").offsetWidth;
 
         if (x + width > containerwidth) {
-            console.log(x-width);
+            console.log(x - width);
             //element.style.margin.left = "-"+(x-width)*4 + "px";
-            console.log("-"+ Math.floor(x+width-containerwidth) +"px");
-            element.style.left = "-"+ Math.floor(x+width-containerwidth)-50 +"px";
+            console.log("-" + Math.floor(x + width - containerwidth) + "px");
+            element.style.left = "-" + Math.floor(x + width - containerwidth) - 50 + "px";
         }
         //let height = element.offsetHeight;
         console.log(x);
         //console.log(element); // 👉️ div
-        
+
     }
 
 }
@@ -785,7 +804,7 @@ function sort(sortby) {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("mainTable");
     switching = true;
-    
+
 
     if (method == sortby) {
 
@@ -799,8 +818,8 @@ function sort(sortby) {
         document.getElementById("lang-sort").innerHTML = "";
     }
 
-    
-    
+
+
 
     if (method == sortby) {
         sortRev1 = !sortRev1;
@@ -869,7 +888,7 @@ function sort(sortby) {
             //x = rows[i].getElementsByTagName("TD")[0];
             //y = rows[i + 1].getElementsByTagName("TD")[0];
 
-            
+
             if (method == "date") {
                 x = new Date(rows[i].getAttribute('"data-date'));
                 y = new Date(rows[i + 1].getAttribute('"data-date'));
@@ -912,7 +931,7 @@ function sort(sortby) {
                     x = rows[i].getAttribute("data-lang").toLowerCase();
                     y = rows[i + 1].getAttribute("data-lang").toLowerCase();
                 }
-                
+
                 if (sortRev2 && method2 != "lang") {
                     x = x * -1;
                     y = y * -1;
@@ -927,7 +946,7 @@ function sort(sortby) {
                 }
             }
 
-        
+
             // Check if the two rows should switch place:
             if (x > y) {
                 // If so, mark as a switch and break the loop:

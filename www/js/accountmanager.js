@@ -1,7 +1,17 @@
 var curid = null;
+const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+let editing = false;
+
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+    if (editing) {
+        return "Máte neuložené změny. Opravdu chcete opustit stránku?";
+    }
+}
 
 function edit(user) {
     //console.log("edit user: " + user);
+    editing = true;
 
     var pos = document.querySelector('[data-account="' + user + '"]');
     //console.log(pos.children);
@@ -31,11 +41,16 @@ function edit(user) {
     editButtons.forEach(function (button) {
         button.disabled = true;
     });
+    document.getElementsByName("username")[0].focus();
 
 }
 
 function deleteUser(user) {
     //console.log("delete user: " + user);
+
+    if (!confirm("Opravdu chcete smazat uživatele?")) {
+        return;
+    }
 
     naja.makeRequest('POST', '/accountmanager/', JSON.stringify({"action": "delete", "username": user}), {
         fetch: {
@@ -62,8 +77,9 @@ function deleteUser(user) {
 function add() {
     //console.log("add user");
     var table = document.getElementById("accountTable");
+    editing = true;
     var html = `<tr id='addnew'>
-    <td><input type='text' name='username' placeholder='Username' value=''></td>
+    <td><input type='text' name='username' placeholder='Uživatelské jméno' value=''></td>
     <td><input type='text' name='password' placeholder='Heslo' value=''/></td>
     <td><input type='text' name='email' placeholder='Email' value=''/></td>
     <td><input type='text' name='name' placeholder='Jméno' value=''/></td>
@@ -79,6 +95,7 @@ function add() {
     editButtons.forEach(function (button) {
         button.disabled = true;
     });
+    document.getElementsByName("username")[0].focus();
 
     /*
     naja.makeRequest('POST', '/accountmanager/', JSON.stringify({value: '42'}), {
@@ -95,6 +112,7 @@ function add() {
 var isAdmin = "";
 
 function save(user) {
+    editing = false;
     if (user == 'new') {
         //console.log("save new user");
 
@@ -111,6 +129,12 @@ function save(user) {
             var admintext = "Ne";
             var isAdmin = "0";
         }
+
+        if (!emailRegex.test(email)) {
+            alert("Email není ve správném formátu!");
+            return;
+        }
+
         //console.log(username);
 
         if (username == "" || password == "") {
@@ -171,6 +195,11 @@ function save(user) {
         } else {
             var admintext = "Ne";
             var isAdmin = "0";
+        }
+
+        if (!emailRegex.test(email)) {
+            alert("Email není ve správném formátu!");
+            return;
         }
         //console.log("adm: "+isAdmin);
 

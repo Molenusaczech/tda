@@ -38,10 +38,10 @@ function getRecord($id, $user)
     $file = json_decode($file, true);
     //$record = $file[$user]["notes"][$id];
     if (!isset($file[$user]["notes"][$id])) {
-        return null;
+        return "none";
     }
     $final = array();
-    $final["id"] = $id;
+    $final["id"] = $id."";
     $final["date"] = Date("Y-m-d", strtotime($file[$user]["notes"][$id]["date"]));
     $final["time-spent"] = timeFormat($file[$user]["notes"][$id]["lenght"]);
     $final["programming-language"] = $file[$user]["notes"][$id]["lang"];
@@ -131,7 +131,7 @@ function getAllRecords($user) {
     $file = json_decode($file, true);
 
     if (!isset($file[$user])) {
-        return null;
+        return "none";
     }
 
     $resp = array();
@@ -226,7 +226,7 @@ final class ApiPresenter extends Nette\Application\UI\Presenter
         switch ($_SERVER['REQUEST_METHOD']) {
             case "GET":
                 $resp = getRecord($recordid, $userid);
-                if ($resp == null) {
+                if ($resp == "none") {
                     http_response_code(404);
                     $this->sendPayload();
                 } else {
@@ -269,7 +269,7 @@ final class ApiPresenter extends Nette\Application\UI\Presenter
 
             case "GET":
                 $resp = getAllRecords($userid);
-                if ($resp == null) {
+                if ($resp == "none") {
                     http_response_code(404);
                     $this->sendPayload();
                 } else {

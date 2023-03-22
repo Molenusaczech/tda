@@ -34,6 +34,12 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
                     $id = $global["user"];
                     $global["user"] = $global["user"] + 1;
 
+                    foreach ($json as $key => $value) {
+                        if ($value["username"] == $user) {
+                            $this->sendJson(['resp' => "Uživatel s tímto jménem již existuje"]);
+                        }
+                    }
+
                     $json[$id]['username'] = $user;
                     $json[$id]['password'] = $data['password'];
                     $json[$id]['manageUsers'] = $data['isAdmin'];
@@ -65,7 +71,18 @@ final class AccountManagerPresenter extends Nette\Application\UI\Presenter
 
                     $id = $data["id"];
 
+
                     if (isset($json[$id])) {
+
+
+                        if ($json[$id]['username'] != $user) {
+                            foreach ($json as $key => $value) {
+                                if ($value["username"] == $user) {
+                                    $this->sendJson(['resp' => "Uživatel s tímto jménem již existuje"]);
+                                }
+                            }
+                        }
+
                         $json[$id]['username'] = $user;
                         $json[$id]['password'] = $data['password'];
                         $json[$id]['manageUsers'] = $data['isAdmin'];
