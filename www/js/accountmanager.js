@@ -31,7 +31,7 @@ function edit(user) {
     } else {
         admin = "";
     }
-    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Uživatelské jméno' value='"+username+"'/></td><td><input type='text' name='password' placeholder='Heslo' value='"+pass+"'/></td><td><input type='text' name='email' placeholder='Email' value='"+email+"'/></td><td><input type='text' name='name' placeholder='Jméno' value='"+name+"'/></td><td><input type='text' name='surname' placeholder='Přijmení' value='"+surname+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
+    var html = "<tr id='addnew'><td><input type='text' name='username' placeholder='Uživatelské jméno*' value='"+username+"'/></td><td><input type='text' name='password' placeholder='Heslo*' value='"+pass+"'/></td><td><input type='text' name='email' placeholder='Email*' value='"+email+"'/></td><td><input type='text' name='name' placeholder='Jméno' value='"+name+"'/></td><td><input type='text' name='surname' placeholder='Přijmení' value='"+surname+"'/></td><td><input type='checkbox' name='admin' "+admin+"></td><td><input type='button' value='Save' onclick=save('"+user+"')></td></tr>";
     pos.insertAdjacentHTML('afterend', html);
     pos.style.display = "none";
 
@@ -79,9 +79,9 @@ function add() {
     var table = document.getElementById("accountTable");
     editing = true;
     var html = `<tr id='addnew'>
-    <td><input type='text' name='username' placeholder='Uživatelské jméno' value=''></td>
-    <td><input type='text' name='password' placeholder='Heslo' value=''/></td>
-    <td><input type='text' name='email' placeholder='Email' value=''/></td>
+    <td><input type='text' name='username' placeholder='Uživatelské jméno*' value=''></td>
+    <td><input type='text' name='password' placeholder='Heslo*' value=''/></td>
+    <td><input type='text' name='email' placeholder='Email*' value=''/></td>
     <td><input type='text' name='name' placeholder='Jméno' value=''/></td>
     <td><input type='text' name='surname' placeholder='Příjmení' value=''/></td>
     <td><input type='checkbox' name='admin'></td>

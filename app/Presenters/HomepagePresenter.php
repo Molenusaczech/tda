@@ -184,7 +184,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
             $finalNotes[$index] = $note;
 
             $tagtext = "";
-
+            /*
             foreach ($note['tags'] as $index2 => $tag) {
                 
                 $color = $tags[$tag]['color'];
@@ -199,7 +199,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
                 
 
                 $index2++;
-            }
+            }*/
+            $finalNotes[$index]['tags'] = array();
 
             $timestamp = strtotime("".$note["date"]."");
             $timestamp++;
@@ -265,7 +266,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         }
         
 
-        $this->template->tags = $tags;
+        $this->template->tags = array();
         $this->template->admin = $isAdmin;
 
     }

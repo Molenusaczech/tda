@@ -61,29 +61,21 @@ function edit(id) {
 
     var html = `<tr id='addnew'>
     <td>
-        <input type='text' name='description' placeholder='Popis' value='${desc}'>
+        <input type='text' name='description' placeholder='Popis*' value='${desc}'>
     </td>
     <td>
         <input type='datetime-local' name='date' value='${date}'/>
     </td>
     <td>
-        <input type='text' name='lang' placeholder='Jazyk' value='${lang}'>
+        <input type='text' name='lang' placeholder='Jazyk*' value='${lang}'>
     </td>
     <td>
-        <input type='number' name='lenght' value='${lenght}' placeholder='Délka (v minutách)'>
+        <input type='number' name='lenght' value='${lenght}' placeholder='Délka (v minutách)*'>
     </td>
 
     <td>
-        <input type='number' min=1 max=5 name="rating" value='${rating}' placeholder="1-5*">
+        <input type='number' min=1 max=5 name="rating" value='${rating}' placeholder="1-5⭐*">
     </td>
-
-    <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
-        <span class="popuptext" id="myPopup">
-            `+ tagtext + `
-        </span>
-        ${tdtext}
-        </span>
-    </>
 
     <td>
         <input type='button' value='Uložit' onclick=save('${id}')>
@@ -161,28 +153,21 @@ function add() {
 
     var html = `<tr id='addnew'>
     <td>
-        <input type='text' name='description' placeholder='Popis' value=''>
+        <input type='text' name='description' placeholder='Popis*' value=''>
     </td>
     <td>
         <input type='datetime-local' name='date' value=''/>
     </td>
     <td>
-        <input type='text' name='lang' placeholder='Jazyk'>
+        <input type='text' name='lang' placeholder='Jazyk*'>
     </td>
     <td>
-        <input type='number' name='lenght' placeholder='Délka (v minutách)'>
+        <input type='number' name='lenght' placeholder='Délka (v minutách)*'>
     </td>
 
     <td>
-        <input type='number' min=1 max=5 name="rating" placeholder="1-5*">
+        <input type='number' min=1 max=5 name="rating" placeholder="1-5⭐*">
     </td>
-
-    <td> <span class="popup" id="editPopup"><span onclick="popup()">+</span>
-        <span class="popuptext" id="myPopup">
-            `+ tagtext + `
-        </span>
-        </span>
-    </>
 
     <td>
         <input type='button' value='Uložit' onclick=save('new')>
@@ -343,7 +328,6 @@ function save(id) {
                     <td>${lenght} min</td>
                     <td>${rating}<span class="star"></span></td>
 
-                    <td> `+ tagtext + ` </td>
 
                     <td> <input type="button" name="editButton" value="Upravit" onClick=edit(${id})> </td>
                     <td> <input type="button" value="Smazat" onClick=del(${id})> </td>
@@ -427,8 +411,6 @@ function save(id) {
                     <td>${lang}</td>
                     <td>${lenght} min</td>
                     <td>${rating}<span class="star"></span></td>
-
-                    <td> `+ tagtext + ` </td>
 
                     <td> <input type="button" name="editButton" value="Upravit" onClick=edit(${id})> </td>
                     <td> <input type="button" value="Smazat" onClick=del(${id})> </td>

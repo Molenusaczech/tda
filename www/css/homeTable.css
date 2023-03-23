@@ -90,3 +90,7 @@ input[type="button"]:hover {
     box-shadow: 0 0 0.5vw #000000;
     transition: 200ms;
 }
+
+input[name="rating"] {
+    width: 5em;
+}

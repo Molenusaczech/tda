@@ -25,38 +25,6 @@ Hlavní stránka
 <div id="wrapper">
 	<div id="side-container">
 
-	<div id="tag-container">
-	<h2>Tags</h2>
-
-	{foreach $tags as $tid => $tag}
-
-	<span style={$tag['style']} class="tagSelector" data-tagselect={$tid}> 
-		<input type="checkbox" onClick=tagClick({$tid})> 
-		<span data-tagtitle={$tid}> {$tag["name"]} </span> 
-		
-		<span class="popup">
-			<span onClick=tagPopup({$tid})>✎</span>
-			<span class="tagPopup" data-popup={$tid}>
-				<input type="color" value="{$tag['color']}">
-				<input type="text" placeholder="Jméno štítku" value="{$tag['name']}">		
-				<input type="button" value="Upravit" onclick=tagEdit({$tid})>
-			</span>
-			</span>
-			<span onClick=tagDelete({$tid}) class="clickable">🗑</span>
-	</span>
-
-	{/foreach}
-
- <span class="popup" id="newTag">
- 		<span onclick=tagPopup("new")></span>
-        <span class="tagPopup" id="newPopup">
-			<input type="color" id="newColor" value="#000000">
-			<input type="text" id="newName" placeholder="Jméno štítku">		
-			<input type="button" value="Vytvořit" onclick=tagCreate("new")>
-        </span>
-</span>
-
-	</div>
 
 <div id="filter-container">
 
@@ -108,7 +76,6 @@ Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange=
 <th class="sort" onclick=sort("lang")>Jazyk<span id="lang-sort"></span></th>
 <th class="sort" onclick=sort("lenght")>Délka<span id="lenght-sort"></span></th>
 <th class="sort" onclick=sort("rating")>Hodnocení<span id="rate-sort"></span></th>
-<th>Štítky</th>
 
 	</tr>
 	{foreach $notes as $id => $t}
@@ -120,16 +87,6 @@ Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange=
 	<td>{$t["lang"]}</td>
 	<td>{$t["lenght"]} min</td>
 	<td>{$t["rating"]}<span class="star"><span></td>
-
-	<td> 
-
-	{foreach $t["tags"] as $tag}
-
-	<span style={$tag['color']} data-tagid={$tag["id"]}>{$tag['name']}</span>
-
-	{/foreach}
-
-	</td>
 	<td> <input type="button" name="editButton" value="Upravit" onClick=edit({$id})> </td>
 	<td> <input type="button" value="Smazat" onClick=del({$id})> </td>
 
