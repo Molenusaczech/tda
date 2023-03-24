@@ -183,6 +183,8 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
         foreach ($notes as $index => $note) {
             $finalNotes[$index] = $note;
 
+            $finalNotes[$index]['date'] = date("d.m.Y h:m", strtotime($note['date']));
+
             $tagtext = "";
             /*
             foreach ($note['tags'] as $index2 => $tag) {
