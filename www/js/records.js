@@ -179,7 +179,15 @@ function add() {
     console.log(tags);
 
     pos.insertAdjacentHTML('afterEnd', html);
-    document.getElementsByName("date")[0].value = new Date().toISOString().slice(0, 16);
+
+    let curTime = new Date().getTime();
+
+    curTime = new Date(curTime + 1000 * 60 * 60 * 2).toISOString().slice(0, 16);
+
+    //curTime = new Date(curTime).toISOString().slice(0, 16);
+    console.log(curTime);
+
+    document.getElementsByName("date")[0].value = curTime;
     document.getElementById("addButton").disabled = true;
     var editButtons = document.querySelectorAll('[name="editButton"]');
 
