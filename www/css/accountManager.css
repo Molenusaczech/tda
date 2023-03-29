@@ -1,8 +1,16 @@
 #header {
-    grid-template-columns: 0.5fr 0.7fr repeat(3, 0.07fr);
+    grid-template-columns: 0.2fr 1fr repeat(4, 0.1fr);
 }
-#header > #home {
-    grid-area: 1 / 3 / 2 / 4;
+@media only screen and (max-width: 560px) {
+    #header {
+        display: grid; 
+        grid-auto-columns: 1fr; 
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: 1fr 1fr; 
+        grid-template-areas: 
+          "title title title"
+          "icon1 icon2 icon4"; 
+    }
 }
 div#adminTitle {
     width: 100%;

@@ -1,5 +1,13 @@
-#header > #home {
-    grid-area: 1 / 4 / 2 / 5;
+@media only screen and (max-width: 560px) {
+    #header {
+        display: grid; 
+        grid-auto-columns: 1fr; 
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: 1fr 1fr; 
+        grid-template-areas: 
+          "title title title"
+          "icon1 icon2 icon4"; 
+    }
 }
 table#mainTable {
     border-collapse: collapse;

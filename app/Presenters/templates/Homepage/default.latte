@@ -17,57 +17,55 @@ Hlavní stránka
 <div id="header">
 	<span id="title">&lt;<span>DIARY</span>/&gt;</span>
 	{if $admin}
-	<a n:href="AccountManager:Default" id="admin"></a>
+	<a n:href="AccountManager:Default" class="header-icons" id="admin"></a>
 	{/if}
-	<a n:href="BackupManager:Default" id="backups"></a>
-	<a n:href="Login:Logout" id="logout"></a>
+	<a n:href="BackupManager:Default" class="header-icons" id="backups"></a>
+	<a n:href="Homepage:Default" class="header-icons selected" id="home"></a>
+	<a n:href="Login:Logout" class="header-icons" id="logout"></a>
 </div>
 <div id="wrapper">
-	<div id="side-container">
+	<div id="filter-container">
 
-
-<div id="filter-container">
-
-<h2>Filtr</h2>
+<h2>Filtry</h2>
 <div id="filters">
-Datum:
-<input type="datetime-local" id="dateFrom" value="{$filters["mintime"]}" onchange="filter()">
-- 
-<input type="datetime-local" id="dateTo" value="{$filters["maxtime"]}" onchange="filter()">
+	<div>
+		Datum:
+		Od:
+		<input type="datetime-local" id="dateFrom" value="{$filters["mintime"]}" onchange="filter()">
+		Do:
+		<input type="datetime-local" id="dateTo" value="{$filters["maxtime"]}" onchange="filter()">
+	</div>
+	<div>
+	Jazyk:
+		<select id="lang" onchange="filter()">
 
-<br>
+		<option value="all">Vše</option>
 
-Jazyk:
-<select id="lang" onchange="filter()">
+		{foreach $filters["langlist"] as $lang}
 
-<option value="all">Vše</option>
+		<option value="{$lang}">{$lang}</option>
 
-{foreach $filters["langlist"] as $lang}
+		{/foreach}
 
-<option value="{$lang}">{$lang}</option>
+		</select>
+	</div>
+	<div>
+		Délka:
+		Od: <input type="number" id="lenghtFrom" value="{$filters["minlenght"]}" onchange="filter()">
+		Do: <input type="number" id="lenghtTo" value="{$filters["maxlenght"]}" onchange="filter()">
+	</div>
+	<div>
+	Hodnocení:
+		Od: <input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchange="filter()">
+		Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
 
-{/foreach}
-
-</select>
-
-<br>
-
-Délka:
-Od: <input type="number" id="lenghtFrom" value="{$filters["minlenght"]}" onchange="filter()">
-Do: <input type="number" id="lenghtTo" value="{$filters["maxlenght"]}" onchange="filter()">
-
-<br>
-
-Hodnocení:
-Od: <input type="number" id="ratingFrom" value="{$filters["minrating"]}" onchange="filter()">
-Do: <input type="number" id="ratingTo" value="{$filters["maxrating"]}" onchange="filter()">
-
-</div>
+	</div>
 </div>
 </div>
 <div id="main-container">
 
 	<div id="table-wrapper">
+	<h2>Seznam záznamů</h2>
 	<table id="mainTable">
 	<tr id="tableTitle">
 

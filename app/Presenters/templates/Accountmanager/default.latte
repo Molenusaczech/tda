@@ -14,9 +14,12 @@ Správa účtů
 
 <div id="header">
 	<span id="title">&lt;<span>ACCOUNT&nbsp;MANAGER</span>/&gt;</span>
-	<a n:href="Homepage:Default" id="home"></a>
-	<a n:href="BackupManager:Default" id="backups"></a>
-	<a n:href="Login:Logout" id="logout"></a>
+	{* {if $admin}
+	<a n:href="AccountManager:Default" class="header-icons selected" id="admin"></a>
+	{/if} *}
+	<a n:href="BackupManager:Default" class="header-icons" id="backups"></a>
+	<a n:href="Homepage:Default" class="header-icons" id="home"></a>
+	<a n:href="Login:Logout" class="header-icons" id="logout"></a>
 </div>
 
 <table id="accountTable">
