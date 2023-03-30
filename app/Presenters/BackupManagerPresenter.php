@@ -224,7 +224,7 @@ final class BackupManagerPresenter extends Nette\Application\UI\Presenter
 
         $isAdmin = $file[$_SESSION['user']]['manageUsers'];
 
-        $this->template->isAdmin = $isAdmin;
+        $this->template->admin = $isAdmin;
 
         foreach ($backups as $backup) {
             $backup = str_replace(".csv", "", $backup);
