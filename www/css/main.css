@@ -37,10 +37,10 @@ body > #header {
 #header > .title > span {
     color: #ef8a17;
 }
-.selected > span {
+#header > .title.selected > span {
     color: #fff;
 }
-.selected {
+#header > .title.selected {
     background-color: #ef8a17;
     border: 0 solid transparent;
     border-top-right-radius: 1vw;
