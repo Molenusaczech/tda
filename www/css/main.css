@@ -101,7 +101,6 @@ button#createNote:hover {
 
 div#stats {
     float: none;
-    display: inline;
     font-size: 4vw;
     text-align: center;
     background-color: #FFF;
