@@ -83,11 +83,13 @@ function revertNote(id) {
 
 function focusNote(id) {
     let container = document.querySelector("[data-id='" + id + "']");
+    container.querySelector(".interaction").style.display = "block";
     console.log("focusNote: " + id);
 }
 
 function unfocusNote(id) {
     let container = document.querySelector("[data-id='" + id + "']");
+    container.querySelector(".interaction").style.display = "none";
     console.log("unfocusNote: "+ id);
 }
 
