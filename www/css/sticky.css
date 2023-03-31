@@ -11,13 +11,14 @@
         }
         .container {
             display: grid; 
-            grid-template-columns: 1fr 0.1fr; 
-            grid-template-rows: 0.3fr 2.4fr 0.3fr; 
+            grid-auto-columns: 1fr; 
+            grid-template-columns: 2.4fr 0.3fr 0.3fr; 
+            grid-template-rows: 0.4fr 2.3fr 0.3fr; 
             gap: 0px 0px; 
             grid-template-areas: 
-                "title remove"
-                "text text"
-                "autor autor"; 
+                "title title remove"
+                "text text text"
+                "autor undoChanges saveChanges"; 
             background-color: #e6e66b;
             width: 25vw;
             height: 25vw;
@@ -36,17 +37,43 @@
             text-align: center;
             padding-top: 0.5vw;
         }
+        .remove > button {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background-color: #e6e66b;
+            font-size: 1.6vw;
+            font-weight: bold;
+        }
         .text {
             grid-area: text; 
             font-size: 2.1vw;
             text-align: justify;
             padding: 0.5vw; }
-        .name {
+        .autor {
             grid-area: autor;
             font-size: 1.6vw;
             text-align: left;
             padding: 0.5vw;
             prefix: 'rest';
+        }
+        .undoChanges { 
+            grid-area: undoChanges;
+            align-self: center;
+        }
+        .saveChanges {
+            grid-area: saveChanges;
+            align-self: center;
+        }
+        .saveChanges > button, .undoChanges > button {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background-color: #e6e66b;
+            font-size: 1.6vw;
+            font-weight: bold;
         }
         .noteText {
             width: 100%;
@@ -66,14 +93,57 @@
             background-color: #e6e66b;
         }
         .noteTitle {
-            width: 100%;
-            height: 0.3fr;
+            height: 0.1fr;
             float: left;
             border: none;
             resize: none;
             outline: none;
             background-color: #e6e66b;
             text-align: center;
+        }
+        .noteText {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            background-color: #e6e66b;
+        }
+        .noteAutor {
+            width: 100%;
+            height: 100%;
+            float: left;
+            border: none;
+            resize: none;
+            outline: none;
+            background-color: #e6e66b;
+        }
+        .autor {
+            display: grid; 
+            grid-auto-columns: 1fr; 
+            grid-template-columns: 0.05fr 1fr; 
+            grid-template-rows: 1fr;
+            grid-template-areas:  
+                "part1 part2";
+            width: 100%;
+            height: 100%;
+            float: left;
+            border: none;
+            resize: none;
+            outline: none;
+            background-color: #e6e66b;
+             
+        }
+        .part1 { grid-area: part1; }
+        .part2 {
+            grid-area: part2;
+            width: 100%;
+            height: 100%;
+            float: left;
+            border: none;
+            resize: none;
+            outline: none;
+            background-color: #e6e66b;
         }
 
         #alert {
@@ -87,6 +157,6 @@
             z-index: 999;
         }
 
-        .interaction {
+        .undoChanges, .saveChanges {
             display: none;
         }

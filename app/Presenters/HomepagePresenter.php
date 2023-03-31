@@ -45,6 +45,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
                 $global['notes'] = $id + 1;
 
                 $resp = $data["notes"][$id];
+                $resp['id'] = $id;
             } else if ($action == "delete") {
                 $id = $rqdata['id'];
                 unset($data["notes"][$id]);

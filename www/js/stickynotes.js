@@ -1,16 +1,11 @@
 function createNote() {
-    let title = document.getElementById("title").value;
-    let text = document.getElementById("text").value;
-    let author = document.getElementById("author").value;
-    let color = document.getElementById("color").value;
-
     naja.makeRequest('POST', '/', JSON.stringify(
         {
             "action": "create",
-            "title": title,
-            "text": text,
-            "author": author,
-            "color": color
+            "title": "",
+            "text": "",
+            "author": "",
+            "color": "#FFFF00"
         }), {
         fetch: {
             headers: {
@@ -19,6 +14,31 @@ function createNote() {
         },
     }).then(function (response) {
         console.log(response);
+        let id = response.id;
+        let addTo = document.getElementById("notes");
+        let html = `<div class="container" data-id=${id}>
+        <span class="title">
+            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky (klikněte pro editaci)" class="noteTitle" onFocus=focusNote(${id})></textarea>
+        </span>
+        <span class="remove" onClick=deleteNote(${id})>X</span>
+        <span class="text">
+            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky (klikněte pro editaci)" class="noteText" onFocus=focusNote(${id})></textarea>
+        </span>
+<span class="name">
+            <span class="part1">-</span>
+            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno (klikněte pro editaci)" onFocus=focusNote(${id})></textarea>
+        </span>
+
+		<span class="undoChanges">
+            <button class="edit" onClick=editNote(${id})>Edit</button>
+        </span>
+        <span class="saveChanges">
+            <button class="revert" onClick=revertNote(${id})>Revert</button>
+        </span>
+    </div>`;
+
+
+        addTo.insertAdjacentHTML('afterbegin', html);
     });
 }
 
@@ -87,14 +107,16 @@ function revertNote(id) {
 
 function focusNote(id) {
     let container = document.querySelector("[data-id='" + id + "']");
-    container.querySelector(".interaction").style.display = "block";
+    container.querySelector(".saveChanges").style.display = "block";
+    container.querySelector(".undoChanges").style.display = "block";
     console.log("focusNote: " + id);
 }
 
 function unfocusNote(id) {
     let container = document.querySelector("[data-id='" + id + "']");
-    container.querySelector(".interaction").style.display = "none";
-    console.log("unfocusNote: "+ id);
+    container.querySelector(".saveChanges").style.display = "none";
+    container.querySelector(".undoChanges").style.display = "none";
+    console.log("unfocusNote: " + id);
 }
 
 function customAlert(text) {

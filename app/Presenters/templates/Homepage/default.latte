@@ -32,27 +32,32 @@ Create Note:
 
 <script src="{$basePath}/js/stickynotes.js"></script>
 
+<div id="notes">
 {foreach $notes as $id => $note}
 
 <div class="container" data-id={$id}>
         <span class="title">
-            <textarea maxlength="50" autocomplete="off" class="noteTitle" onFocus=focusNote({$id})>{$note["title"]}</textarea>
+            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky (klikněte pro editaci)" class="noteTitle" onFocus=focusNote({$id})>{$note["title"]}</textarea>
         </span>
         <span class="remove" onClick=deleteNote({$id})>X</span>
         <span class="text">
-            <textarea autocomplete="off" maxlength="120" class="noteText" onFocus=focusNote({$id})>{$note["text"]}</textarea>
+            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky (klikněte pro editaci)" class="noteText" onFocus=focusNote({$id})>{$note["text"]}</textarea>
         </span>
-        <span class="name">
-            <span>-</span>
-            <textarea autocomplete="off" maxlength="50" class="noteAutor" onFocus=focusNote({$id})>{$note["author"]}</textarea>
+<span class="name">
+            <span class="part1">-</span>
+            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno (klikněte pro editaci)" onFocus=focusNote({$id})></textarea>
         </span>
-		<span class="interaction">
-			<span class="edit" onClick=editNote({$id})>Edit</span>
-			<span class="revert" onClick=revertNote({$id})>Revert</span>
-		</span>
+
+		<span class="undoChanges">
+            <button class="edit" onClick=editNote({$id})>Edit</button>
+        </span>
+        <span class="saveChanges">
+            <button class="revert" onClick=revertNote({$id})>Revert</button>
+        </span>
     </div>
 
 {/foreach}
+</div>
 
 <script>
 
