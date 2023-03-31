@@ -62,17 +62,61 @@ async function updateStats() {
 
     let countAdd = 0;
     let countDel = 0;
+    let score = {};
+    let addedUsers = {};
+    let removedUsers = {};
     today.forEach(element => {
         let added = element.lines_added;
         let removed = element.lines_removed;
+        let user = element.creator_id;
         countAdd += added;
         countDel += removed;
+        score[user] ??= 0;
+        score[user] += added;
+        score[user] += removed;
+        addedUsers[user] ??= 0;
+        addedUsers[user] += added;
+        removedUsers[user] ??= 0;
+        removedUsers[user] += removed;
     });
     console.log(countAdd);
     console.log(countDel);
+    console.log(score);
 
     document.getElementById("todayAdd").innerHTML = countAdd;
     document.getElementById("todayRemove").innerHTML = countDel;
+
+    let topScore = 0;
+    let topUser = "";
+    for (const [key, value] of Object.entries(score)) {
+        if (value > topScore) {
+            topScore = value;
+            topUser = key;
+        }
+    }
+    console.log(topUser);
+
+    const topRq = await fetch("https://tda.knapa.cz/user/"+topUser, {
+        headers: {
+            'accept': 'application/json',
+            'x-access-token': 'f03026323815179d42698e6c049ea14d',
+        },
+    }); 
+        
+
+    let topuser = await topRq.text();
+    topuser = JSON.parse(topuser);
+    console.log(topuser);
+
+    let name = topuser.name + " " + topuser.surname + " (@" + topuser.nick + ")";
+    let added = addedUsers[topUser];
+    let removed = removedUsers[topUser];
+    let pfp = topuser.avatar_url;
+
+    document.getElementById("dneImg").src = pfp;
+    document.getElementById("dneJmeno").innerHTML = name;
+    document.getElementById("dnePlus").innerHTML = "+"+added;
+    document.getElementById("dneMinus").innerHTML = "-"+removed;
 }
 
 function uptime() {
