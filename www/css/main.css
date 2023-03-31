@@ -6,6 +6,7 @@
     font: 1em sans-serif;
     font-family: Roboto;
 }
+/* #region HEADER*/
 body > #header {
     background-color: #ef8a17;
     width: 100%;
@@ -53,7 +54,9 @@ body > #header {
     background-color: #ef8a17;
     transition: 300ms;
 }
+/* #endregion */
 
+/* #region NOTES*/
 body > #main {
     height: calc(100vh + 4vw);
 }
@@ -91,3 +94,14 @@ button#createNote:hover {
     border-radius: 50%;
     transition: 300ms;
 }
+
+/* #endregion */
+
+/* #region STATS */
+
+div#stats {
+    float: none;
+    display: inline;
+}
+
+/* #endregion */
