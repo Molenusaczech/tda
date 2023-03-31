@@ -115,8 +115,8 @@ async function updateStats() {
 
     document.getElementById("dneImg").src = pfp;
     document.getElementById("dneJmeno").innerHTML = name;
-    document.getElementById("dnePlus").innerHTML = "+"+added;
-    document.getElementById("dneMinus").innerHTML = "-"+removed;
+    document.getElementById("dnePlus").innerHTML = "+ "+added;
+    document.getElementById("dneMinus").innerHTML = "- "+removed;
 }
 
 function uptime() {
