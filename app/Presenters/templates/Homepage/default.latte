@@ -8,10 +8,55 @@ Hlavní stránka
 
 {block head}
 
-<link rel="stylesheet" href="{$basePath}/css/homeTable.css">
+<link rel="stylesheet" href="{$basePath}/css/sticky.css">
 
 {/block}
 
 {block content}
 
+<div id="alert">
+<span class="alertText"></span>
+<span id="alertClose" onClick=closeAlert()>X</span>
+</div>
+
 Test
+
+Create Note:
+<input type="text" id="title" placeholder="title" value="">
+<input type="text" id="text" placeholder="text" value="">
+<input type="text" id="author" placeholder="author" value="">
+<input type="color" id="color">
+<button id="createNote" onClick=createNote()>Create</button>
+<button id="edit" onClick=editNote(0)>Edit 0</button>
+<button id="revert" onClick=revertNote(1)>Revert 0</button>
+
+<script src="{$basePath}/js/stickynotes.js"></script>
+
+{foreach $notes as $id => $note}
+
+<div class="container" data-id={$id}>
+        <span class="title">
+            <textarea maxlength="50" autocomplete="off" class="noteTitle" onFocus=focusNote({$id})>{$note["title"]}</textarea>
+        </span>
+        <span class="remove" onClick=deleteNote({$id})>X</span>
+        <span class="text">
+            <textarea autocomplete="off" maxlength="120" class="noteText" onFocus=focusNote({$id})>{$note["text"]}</textarea>
+        </span>
+        <span class="name">
+            <span>-</span>
+            <textarea autocomplete="off" maxlength="50" class="noteAutor" onFocus=focusNote({$id})>{$note["author"]}</textarea>
+        </span>
+		<span class="interaction">
+			<span class="edit" onClick=editNote({$id})>Edit</span>
+			<span class="revert" onClick=revertNote({$id})>Revert</span>
+		</span>
+    </div>
+
+{/foreach}
+
+<script>
+
+const notes = {$notes};
+
+</script>
+{/block}
