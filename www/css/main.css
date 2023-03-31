@@ -6,6 +6,7 @@
     font: 1em sans-serif;
     font-family: Roboto;
 }
+/* #region HEADER*/
 body > #header {
     background-color: #ef8a17;
     width: 100%;
@@ -46,15 +47,16 @@ body > #header {
     border-bottom-right-radius: 1vw;
 }
 
-#header > .title:hover > span, #header > .title:hover > span {
+#header > .title:hover > span {
     color: #fff;
 }
 #header > .title:hover {
     background-color: #ef8a17;
     transition: 300ms;
 }
+/* #endregion */
 
-
+/* #region NOTES*/
 body > #main {
     height: calc(100vh + 4vw);
 }
@@ -92,3 +94,18 @@ button#createNote:hover {
     border-radius: 50%;
     transition: 300ms;
 }
+
+/* #endregion */
+
+/* #region STATS */
+
+div#stats {
+    float: none;
+    display: inline;
+    font-size: 4vw;
+    text-align: center;
+    background-color: #FFF;
+    color: #000;
+}
+
+/* #endregion */
