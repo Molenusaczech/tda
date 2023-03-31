@@ -24,16 +24,15 @@ function createNote() {
         <span class="text">
             <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky" class="noteText" onFocus=focusNote(${id})></textarea>
         </span>
-<span class="name">
-            <span class="part1">-</span>
-            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno" onFocus=focusNote(${id})></textarea>
+<span class="autor">
+            <span class="part1">-</span><textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno" onFocus=focusNote(${id})></textarea>
         </span>
 
 		<span class="undoChanges">
-            <button class="edit" onClick=editNote(${id})>Edit</button>
+            <button class="edit" onClick=editNote(${id})>💾</button>
         </span>
         <span class="saveChanges">
-            <button class="revert" onClick=revertNote(${id})>Revert</button>
+            <button class="revert" onClick=revertNote(${id})>←</button>
         </span>
     </div>`;
 
@@ -134,9 +133,13 @@ function closeAlert() {
 function loadNotes() {
     document.getElementById("notes").style.display = "block";
     document.getElementById("stats").style.display = "none";
+    document.getElementById("notes").classList.add("selected");
+    document.getElementById("stats").classList.remove("selected")
 }
 
 function loadStats() {
     document.getElementById("notes").style.display = "none";
     document.getElementById("stats").style.display = "block";
+    document.getElementById("notes").classList.remove("selected");
+    document.getElementById("stats").classList.add("selected")
 }
