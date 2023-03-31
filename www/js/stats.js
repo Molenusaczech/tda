@@ -71,8 +71,8 @@ async function updateStats() {
     console.log(countAdd);
     console.log(countDel);
 
-    document.getElementById("todayAdd").innerHTML = countAdd;
-    document.getElementById("todayRemove").innerHTML = countDel;
+    document.getElementById("todayAdd").innerHTML = '+ ' + countAdd;
+    document.getElementById("todayRemove").innerHTML = '- ' + countDel;
 }
 
 function uptime() {
