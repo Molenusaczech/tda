@@ -20,17 +20,9 @@ Hlavní stránka
 </div>
 
 <div id="header">
-    <button id="notesTitle" class="title selected">&lt;<span>Poznámky</span>/&gt;</button>
-    <button id="statsTitle" class="title">&lt;<span>Statistiky</span>/&gt;</button>
+    <button id="notesTitle" class="title selected" onClick=loadNotes()>&lt;<span>Poznámky</span>/&gt;</button>
+    <button id="statsTitle" class="title" onClick=loadStats()>&lt;<span>Statistiky</span>/&gt;</button>
 </div>
-
-Create Note:
-<input type="text" id="title" placeholder="title" value="">
-<input type="text" id="text" placeholder="text" value="">
-<input type="text" id="author" placeholder="author" value="">
-<input type="color" id="color">
-<button id="edit" onClick=editNote(0)>Edit 0</button>
-<button id="revert" onClick=revertNote(1)>Revert 0</button>
 
 <script src="{$basePath}/js/stickynotes.js"></script>
 
@@ -51,10 +43,10 @@ Create Note:
         </span>
 
         <span class="undoChanges">
-            <button class="edit" onClick=editNote({$id})>Edit</button>
+            <button class="edit" onClick=editNote({$id})>💾</button>
         </span>
         <span class="saveChanges">
-            <button class="revert" onClick=revertNote({$id})>Revert</button>
+            <button class="revert" onClick=revertNote({$id})>←</button>
         </span>
     </div>
 </div>

@@ -152,3 +152,7 @@
 .undoChanges, .saveChanges {
     display: none;
 }
+
+#stats {
+    display: none;
+}
