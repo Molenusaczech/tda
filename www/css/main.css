@@ -106,5 +106,37 @@ div#stats {
     background-color: #FFF;
     color: #000;
 }
-
+div#stats > span > .icon {
+    vertical-align: middle;
+}
+div#stats > div > span > #platform {
+    font-size: 0.7em;
+    font-weight: bold;
+}
+div#stats > div {
+    margin: 4vh;
+}
+#lines {
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "countText todayAdd"
+      "countText todayRemove"; 
+}
+#countText {
+    grid-area: countText;
+    text-align: center;
+    transform: translateY(25%);
+}
+#todayAdd {
+    grid-area: todayAdd;
+    color: rgb(255, 20, 20);
+}
+#todayRemove {
+    grid-area: todayRemove;
+    color: rgb(0, 255, 0);
+}
 /* #endregion */

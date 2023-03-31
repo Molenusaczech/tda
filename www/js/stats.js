@@ -83,8 +83,8 @@ async function updateStats() {
     console.log(countDel);
     console.log(score);
 
-    document.getElementById("todayAdd").innerHTML = countAdd;
-    document.getElementById("todayRemove").innerHTML = countDel;
+    document.getElementById("todayAdd").innerHTML = '+ ' + countAdd;
+    document.getElementById("todayRemove").innerHTML = '- ' + countDel;
 
     let topScore = 0;
     let topUser = "";
