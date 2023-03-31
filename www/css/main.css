@@ -47,7 +47,7 @@ body > #header {
     border-bottom-right-radius: 1vw;
 }
 
-#header > .title:hover > span, #header > .title:hover > span {
+#header > .title:hover > span {
     color: #fff;
 }
 #header > .title:hover {
@@ -102,6 +102,10 @@ button#createNote:hover {
 div#stats {
     float: none;
     display: inline;
+    font-size: 4vw;
+    text-align: center;
+    background-color: #FFF;
+    color: #000;
 }
 
 /* #endregion */
