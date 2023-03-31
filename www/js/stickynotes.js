@@ -133,13 +133,13 @@ function closeAlert() {
 function loadNotes() {
     document.getElementById("notes").style.display = "block";
     document.getElementById("stats").style.display = "none";
-    document.getElementById("notes").classList.add("selected");
-    document.getElementById("stats").classList.remove("selected")
+    document.getElementById("notesTitle").classList.add("selected");
+    document.getElementById("statsTitle").classList.remove("selected")
 }
 
 function loadStats() {
     document.getElementById("notes").style.display = "none";
     document.getElementById("stats").style.display = "block";
-    document.getElementById("notes").classList.remove("selected");
-    document.getElementById("stats").classList.add("selected")
+    document.getElementById("notesTitle").classList.remove("selected");
+    document.getElementById("statsTitle").classList.add("selected")
 }
