@@ -15,6 +15,14 @@ function createNote() {
     }).then(function (response) {
         console.log(response);
         let id = response.id;
+
+        notes[id] = {
+            "title": "",
+            "text": "",
+            "author": "",
+            "color": "#FFFF00"
+        }
+
         let addTo = document.getElementById("notes");
         let html = `<div class="container" data-id=${id}>
         <span class="title">
@@ -89,6 +97,14 @@ function editNote(id) {
         unfocusNote(id);
         customAlert("Poznámka byla upravena");
         console.log(response);
+
+        notes[id] = {
+            "title": title,
+            "text": text,
+            "author": author,
+            "color": "#FFFF00"
+        }
+
         let container = document.querySelector("[data-id='" + id + "']");
         container.querySelector(".noteTitle").value = title;
         container.querySelector(".noteText").value = text;
