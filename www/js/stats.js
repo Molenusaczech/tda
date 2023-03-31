@@ -1,21 +1,21 @@
 let startTime = new Date().getTime();
 async function updateStats() {
 
-    const userRq = await fetch("https://tda.knapa.cz/user", {
+    const userRq = await fetch("https://tda.knapa.cz/user/", {
         headers: {
             'accept': 'application/json',
             'x-access-token': 'f03026323815179d42698e6c049ea14d',
         },
     });
 
-    const statRq = await fetch("https://tda.knapa.cz/sysinfo", {
+    const statRq = await fetch("https://tda.knapa.cz/sysinfo/", {
         headers: {
             'accept': 'application/json',
             'x-access-token': 'f03026323815179d42698e6c049ea14d',
         },
     });
 
-    const commitRq = await fetch("https://tda.knapa.cz/commit", {
+    const commitRq = await fetch("https://tda.knapa.cz/commit/", {
         headers: {
             'accept': 'application/json',
             'x-access-token': 'f03026323815179d42698e6c049ea14d',
@@ -88,3 +88,4 @@ function uptime() {
 updateStats();
 
 setInterval(uptime, 1000);
+setInterval(updateStats, 10000);

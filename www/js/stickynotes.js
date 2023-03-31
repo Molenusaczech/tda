@@ -120,12 +120,23 @@ function unfocusNote(id) {
 }
 
 function customAlert(text) {
-    let alert = document.getElementById("alert");
+    /*let alert = document.getElementById("alert");
     document.getElementById("alert").querySelector(".alertText").innerHTML = text
-    alert.style.display = "block";
+    alert.style.display = "block";*/
+    alert(text);
 }
 
 function closeAlert() {
     let alert = document.getElementById("alert");
     alert.style.display = "none";
+}
+
+function loadNotes() {
+    document.getElementById("notes").style.display = "block";
+    document.getElementById("stats").style.display = "none";
+}
+
+function loadStats() {
+    document.getElementById("notes").style.display = "none";
+    document.getElementById("stats").style.display = "block";
 }
