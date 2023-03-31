@@ -70,6 +70,10 @@ function editNote(id) {
         unfocusNote(id);
         customAlert("Poznámka byla upravena");
         console.log(response);
+        let container = document.querySelector("[data-id='" + id + "']");
+        container.querySelector(".noteTitle").value = title;
+        container.querySelector(".noteText").value = text;
+        container.querySelector(".noteAutor").value = author;
     });
 }
 
