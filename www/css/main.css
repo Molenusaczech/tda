@@ -133,10 +133,33 @@ div#stats > div {
 }
 #todayAdd {
     grid-area: todayAdd;
-    color: rgb(255, 20, 20);
+    color: #00ff00;
 }
 #todayRemove {
     grid-area: todayRemove;
-    color: rgb(0, 255, 0);
+    color: #ff1414;
 }
+#coderOD  {
+    display: grid; 
+    grid-auto-columns: 1fr; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 0.4fr 1fr 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "titleCOD titleCOD"
+      "dneImg dneJmeno"
+      "dneImg dnePlus"
+      "dneImg dneMinus"; 
+}
+#titleCOD { grid-area: titleCOD;}
+#dneImg {
+    grid-area: dneImg;
+    width: 100%;
+    height: 100%;
+}
+#dneJmeno { grid-area: dneJmeno; }
+#dnePlus { grid-area: dnePlus;
+    color: #00ff00; }
+#dneMinus { grid-area: dneMinus;
+    color: #ff1414; }
 /* #endregion */
