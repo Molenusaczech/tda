@@ -15,18 +15,20 @@ Hlavní stránka
 {block content}
 
 <div id="alert">
-<span class="alertText"></span>
-<span id="alertClose" onClick=closeAlert()>X</span>
+    <span class="alertText"></span>
+    <span id="alertClose" onClick=closeAlert()>X</span>
 </div>
 
-Test
+<div id="header">
+    <span><button>Poznámkys</button></span>
+    <span><button>Statistiky</button></span>
+</div>
 
 Create Note:
 <input type="text" id="title" placeholder="title" value="">
 <input type="text" id="text" placeholder="text" value="">
 <input type="text" id="author" placeholder="author" value="">
 <input type="color" id="color">
-<button id="createNote" onClick=createNote()>Create</button>
 <button id="edit" onClick=editNote(0)>Edit 0</button>
 <button id="revert" onClick=revertNote(1)>Revert 0</button>
 
