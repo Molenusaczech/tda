@@ -159,7 +159,9 @@ div#stats > div {
 }
 #dneJmeno { grid-area: dneJmeno; }
 #dnePlus { grid-area: dnePlus;
+    margin: auto;
     color: #00ff00; }
 #dneMinus { grid-area: dneMinus;
+    margin: auto;
     color: #ff1414; }
 /* #endregion */
