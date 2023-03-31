@@ -1,6 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
+    font: 1em sans-serif;
+    font-family: Roboto;
+}
+body > #header {
+    background-color: #ef8a17;
+    width: 100%;
+    height: 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#header > .title {
+    background-color: #fff;
+    color: #000;
+    height: calc(100% - 2vw);
+    border: 0 solid transparent;
+    font-size: 2em;
+    transition: 300ms;
+    padding-right: 1vw;
+    padding-left: 1vw;
+}
+#header > #notesTitle {
+    border-top-right-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+}
+#header > #statsTitle {
+    border-top-left-radius: 1vw;
+    border-bottom-left-radius: 1vw;
+}
+
+#header > .title > span {
+    color: #ef8a17;
+}
+#header > .title.selected > span {
+    color: #fff;
+}
+#header > .title.selected {
+    background-color: #ef8a17;
+    border: 0 solid transparent;
+    border-top-right-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+}
+
+#header > .title:hover > span, #header > .title:hover > span {
+    color: #fff;
+}
+#header > .title:hover {
+    background-color: #ef8a17;
+    transition: 300ms;
+}
+
+body > #main {
+    height: calc(100vh + 4vw);
+}
+button#createNote {
+    position: fixed;
+    bottom: 2.3vw;
+    right: 2.3vw;
+    /* margin-right: 2.3vw;
+    margin-bottom: 2.3vw; */
+    background-image: url(../img/svg/plus-orange.svg);
+    background-size: 3.3vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #FFF;
+    border: 0.2vw solid #ef8a17;
+    width: 5.5vw;
+    height: 5.5vw;
+    border-radius: 50%;
+    transition: 300ms;
+}
+button#createNote:hover {
+    position: fixed;
+    bottom: 2.3vw;
+    right: 2.3vw;
+    /* margin-right: 2.3vw;
+    margin-bottom: 2.3vw; */
+    background-image: url(../img/svg/plus-white.svg);
+    background-size: 3.3vw;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #ef8a17;
+    border: 0.2vw solid #fff;
+    width: 5.5vw;
+    height: 5.5vw;
+    border-radius: 50%;
+    transition: 300ms;
 }

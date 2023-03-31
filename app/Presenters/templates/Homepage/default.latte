@@ -15,18 +15,20 @@ Hlavní stránka
 {block content}
 
 <div id="alert">
-<span class="alertText"></span>
-<span id="alertClose" onClick=closeAlert()>X</span>
+    <span class="alertText"></span>
+    <span id="alertClose" onClick=closeAlert()>X</span>
 </div>
 
-Test
+<div id="header">
+    <button id="notesTitle" class="title selected">&lt;<span>Poznámky</span>/&gt;</button>
+    <button id="statsTitle" class="title">&lt;<span>Statistiky</span>/&gt;</button>
+</div>
 
 Create Note:
 <input type="text" id="title" placeholder="title" value="">
 <input type="text" id="text" placeholder="text" value="">
 <input type="text" id="author" placeholder="author" value="">
 <input type="color" id="color">
-<button id="createNote" onClick=createNote()>Create</button>
 <button id="edit" onClick=editNote(0)>Edit 0</button>
 <button id="revert" onClick=revertNote(1)>Revert 0</button>
 
@@ -34,27 +36,29 @@ Create Note:
 
 <div id="notes">
 {foreach $notes as $id => $note}
-
-<div class="container" data-id={$id}>
+<div id="main">
+    <div class="container" data-id={$id}>
         <span class="title">
-            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky (klikněte pro editaci)" class="noteTitle" onFocus=focusNote({$id})>{$note["title"]}</textarea>
+            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky" class="noteTitle" onFocus=focusNote({$id})>{$note["title"]}</textarea>
         </span>
         <span class="remove" onClick=deleteNote({$id})>X</span>
         <span class="text">
-            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky (klikněte pro editaci)" class="noteText" onFocus=focusNote({$id})>{$note["text"]}</textarea>
+            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky" class="noteText" onFocus=focusNote({$id})>{$note["text"]}</textarea>
         </span>
-<span class="name">
+        <span class="autor">
             <span class="part1">-</span>
-            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno (klikněte pro editaci)" onFocus=focusNote({$id})></textarea>
+            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno" onFocus=focusNote({$id})></textarea>
         </span>
 
-		<span class="undoChanges">
+        <span class="undoChanges">
             <button class="edit" onClick=editNote({$id})>Edit</button>
         </span>
         <span class="saveChanges">
             <button class="revert" onClick=revertNote({$id})>Revert</button>
         </span>
     </div>
+</div>
+<button id="createNote" onClick=createNote()></button>
 
 {/foreach}
 </div>

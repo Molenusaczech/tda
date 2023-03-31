@@ -18,15 +18,15 @@ function createNote() {
         let addTo = document.getElementById("notes");
         let html = `<div class="container" data-id=${id}>
         <span class="title">
-            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky (klikněte pro editaci)" class="noteTitle" onFocus=focusNote(${id})></textarea>
+            <textarea maxlength="50" autocomplete="off" placeholder="Název vaší poznámky" class="noteTitle" onFocus=focusNote(${id})></textarea>
         </span>
         <span class="remove" onClick=deleteNote(${id})>X</span>
         <span class="text">
-            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky (klikněte pro editaci)" class="noteText" onFocus=focusNote(${id})></textarea>
+            <textarea autocomplete="off" maxlength="120" placeholder="Velice informaticní text vaší poznámky" class="noteText" onFocus=focusNote(${id})></textarea>
         </span>
 <span class="name">
             <span class="part1">-</span>
-            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno (klikněte pro editaci)" onFocus=focusNote(${id})></textarea>
+            <textarea rows="1" class="part2 noteAutor" autocomplete="off" maxlength="25" placeholder="Vaše jméno" onFocus=focusNote(${id})></textarea>
         </span>
 
 		<span class="undoChanges">
